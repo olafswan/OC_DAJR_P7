@@ -4,7 +4,7 @@ class RecipeCard {
   }
 
   createRecipeCard() {
-    console.log("\n", this._recipe.name);
+    // console.log("\n", this._recipe.name);
 
     const ingredients = this._recipe.ingredients;
     // récupère l'array listant les ingrédients
@@ -16,10 +16,10 @@ class RecipeCard {
 
     // itération sur l'ensemble des ingredients
     ingredients.forEach((recipeIngredient) => {
-      console.log(
-        "🚀 \n file: RecipeCard.js:20 \n RecipeCard \n ingredients.forEach \n recipeIngredient\n",
-        recipeIngredient
-      );
+      // console.log(
+      //   "🚀 \n file: RecipeCard.js:20 \n RecipeCard \n ingredients.forEach \n recipeIngredient\n",
+      //   recipeIngredient
+      // );
 
       // création d'un element HTML div
       const $container = document.createElement("div");
@@ -58,10 +58,10 @@ class RecipeCard {
       // ajout de l'element quantityName en tant qu'enfant de l'element $container
       $container.appendChild(quantityName);
 
-      console.log(
-        "🚀 \n file: RecipeCard.js:42 \n RecipeCard \n ingredients.forEach \n $container\n",
-        $container
-      );
+      // console.log(
+      //   "🚀 \n file: RecipeCard.js:42 \n RecipeCard \n ingredients.forEach \n $container\n",
+      //   $container
+      // );
 
       // ajout de l'element $container en tant qu'enfant de l'element ingredientsWrapper
       ingredientsWrapper.appendChild($container);
