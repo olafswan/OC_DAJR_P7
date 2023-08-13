@@ -41,7 +41,7 @@
     <main>
       <div class="main-header">
         <div class="filters">
-          <div class="select-container close">
+          <div class="select-container close" id="ingredients">
             <div class="select-header">
               <p class="select-title">Ingrédients</p>
               <i class="fa-solid fa-angle-down select-icon down"></i>
@@ -56,15 +56,11 @@
                 </div>
               </div>
 
-              <div class="select-options-container">
-                <p class="select-option">Jus de citron</p>
-                <p class="select-option">Glaçons</p>
-                <p class="select-option">Tomate</p>
-              </div>
+              <div class="select-options-container"></div>
             </div>
           </div>
 
-          <div class="select-container close">
+          <div class="select-container close" id="appliances">
             <div class="select-header">
               <p class="select-title">Appareils</p>
               <i class="fa-solid fa-angle-down select-icon down"></i>
@@ -79,15 +75,11 @@
                 </div>
               </div>
 
-              <div class="select-options-container">
-                <p class="select-option">Jus de citron</p>
-                <p class="select-option">Glaçons</p>
-                <p class="select-option">Tomate</p>
-              </div>
+              <div class="select-options-container"></div>
             </div>
           </div>
 
-          <div class="select-container close">
+          <div class="select-container close" id="ustensils">
             <div class="select-header">
               <p class="select-title">Ustensiles</p>
               <i class="fa-solid fa-angle-down select-icon down"></i>
@@ -102,11 +94,7 @@
                 </div>
               </div>
 
-              <div class="select-options-container">
-                <p class="select-option">Jus de citron</p>
-                <p class="select-option">Glaçons</p>
-                <p class="select-option">Tomate</p>
-              </div>
+              <div class="select-options-container"></div>
             </div>
           </div>
         </div>
@@ -166,6 +154,8 @@
     <script src="./js/api/Api.js"></script>
     <script src="./js/models/Recipe.js"></script>
     <script src="./js/templates/RecipeCard.js"></script>
+    <script src="./js/templates/FilterList.js"></script>
+    <script src="./js/Sort.js"></script>
     <script src="./js/App.js"></script>
   </body>
 </html>
