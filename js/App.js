@@ -1882,9 +1882,94 @@ class App {
     // const Recipes = recipesData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
 
-    const Recipes = this.$hardCodedRecipesData.map(
-      (recipe) => new Recipe(recipe)
-    );
+    this.showRecipes(this.$hardCodedRecipesData);
+
+    this.fillFiltersLists(this.$hardCodedRecipesData);
+
+    // UPDATE code suivant délégué à la method showRecipes()...
+    // const Recipes = this.$hardCodedRecipesData.map(
+    //   (recipe) => new Recipe(recipe)
+    // );
+    // // map de chaque recette pour appliquer la classe Recipe
+
+    // Recipes.forEach((recipe) => {
+    //   const Template = new RecipeCard(recipe);
+    //   // pour chaque recette ajouter la classe RecipeCard
+    //   this.$recipesWrapper.appendChild(Template.createRecipeCard());
+    //   // créer chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
+    // });
+
+    // ----------------------------------------
+
+    // // Création des 3 listes
+    // const EnhancedRecipes = new RecipesData(this.$hardCodedRecipesData);
+    // console.log("🥒 🥒 🥒 \n ", EnhancedRecipes.getIngredientsList());
+    // console.log("🎛 🎛 🎛 \n ", EnhancedRecipes.getAppliancesList());
+    // console.log("🥣 🥣 🥣 \n ", EnhancedRecipes.getUstensilsList());
+
+    // TODO la création des listes doit être une fonction/method pour pouvoir être réutiliser après tri UPDATE : délégué à Sort.js
+    // -----------------------------------------
+    // création des listes ingrédients / appareils / ustensiles
+    // -----------------------------------------
+    let ingredientsList = [];
+    let appliancesList = [];
+    let ustensilsList = [];
+
+    //   Recipes.forEach((recipe) => {
+    //     // console.log(
+    //     //   "🧑‍🍳 \n file: App.js:1900 \n Recipes.forEach \n recipe\n",
+    //     //   recipe
+    //     // );
+
+    //     // récupère l'array listant les ingrédients
+    //     const ingredients = recipe.ingredients;
+    //     // récupère l'array ou le string du/des appareills
+    //     const appliances = recipe.appliance;
+
+    //     // récupère l'array ou le string du/des ustensiles
+    //     const ustensils = recipe.ustensils;
+
+    //     // itération sur l'ensemble des ingredients
+    //     ingredients.forEach((recipeIngredient) => {
+    //       if (!ingredientsList.includes(recipeIngredient.ingredient)) {
+    //         ingredientsList.push(recipeIngredient.ingredient);
+    //       }
+    //     });
+
+    //     function searchItem(itemType, itemList) {
+    //       if (typeof itemType === "string") {
+    //         if (!itemList.includes(itemType)) {
+    //           itemList.push(itemType);
+    //         }
+    //       } else if (typeof itemType === "object") {
+    //         itemType.forEach((item) => {
+    //           if (!itemList.includes(item)) {
+    //             itemList.push(item);
+    //           }
+    //         });
+    //       }
+    //     }
+
+    //     searchItem(appliances, appliancesList);
+    //     searchItem(ustensils, ustensilsList);
+    //   });
+
+    //   // console.log(
+    //   //   "🥒 \n file: App.js:1899 \n main \n ingredientsList\n",
+    //   //   ingredientsList
+    //   // );
+    //   // console.log(
+    //   //   "🎛 \n file: App.js:1913 \n Recipes.forEach \n appliancesList\n",
+    //   //   appliancesList
+    //   // );
+    //   // console.log(
+    //   //   "🥣 \n file: App.js:1918 \n Recipes.forEach \n ustensilsList\n",
+    //   //   ustensilsList
+    //   // );
+  }
+
+  showRecipes(recipeData) {
+    const Recipes = recipeData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
 
     Recipes.forEach((recipe) => {
@@ -1893,65 +1978,20 @@ class App {
       this.$recipesWrapper.appendChild(Template.createRecipeCard());
       // créer chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
     });
+  }
 
-    // -----------------------------------------
-    // création des listes ingrédients / appareils / ustensiles
-    // -----------------------------------------
-    let ingredientsList = [];
-    let appliancesList = [];
-    let ustensilsList = [];
+  fillFiltersLists(recipeData) {
+    const EnhancedRecipes = new RecipesData(recipeData);
+    // console.log("🥒 🥒 🥒 \n ", EnhancedRecipes.getIngredientsList());
+    // console.log("🎛 🎛 🎛 \n ", EnhancedRecipes.getAppliancesList());
+    // console.log("🥣 🥣 🥣 \n ", EnhancedRecipes.getUstensilsList());
 
-    Recipes.forEach((recipe) => {
-      console.log(
-        "🧑‍🍳 \n file: App.js:1900 \n Recipes.forEach \n recipe\n",
-        recipe
-      );
-
-      // récupère l'array listant les ingrédients
-      const ingredients = recipe.ingredients;
-      // récupère l'array ou le string du/des appareills
-      const appliances = recipe.appliance;
-
-      // récupère l'array ou le string du/des ustensiles
-      const ustensils = recipe.ustensils;
-
-      // itération sur l'ensemble des ingredients
-      ingredients.forEach((recipeIngredient) => {
-        if (!ingredientsList.includes(recipeIngredient.ingredient)) {
-          ingredientsList.push(recipeIngredient.ingredient);
-        }
-      });
-
-      function searchItem(itemType, itemList) {
-        if (typeof itemType === "string") {
-          if (!itemList.includes(itemType)) {
-            itemList.push(itemType);
-          }
-        } else if (typeof itemType === "object") {
-          itemType.forEach((item) => {
-            if (!itemList.includes(item)) {
-              itemList.push(item);
-            }
-          });
-        }
-      }
-
-      searchItem(appliances, appliancesList);
-      searchItem(ustensils, ustensilsList);
-    });
-
-    console.log(
-      "🥒 \n file: App.js:1899 \n main \n ingredientsList\n",
-      ingredientsList
+    const ListBuilder = new FilterList(
+      EnhancedRecipes.getIngredientsList(),
+      EnhancedRecipes.getAppliancesList(),
+      EnhancedRecipes.getUstensilsList()
     );
-    console.log(
-      "🎛 \n file: App.js:1913 \n Recipes.forEach \n appliancesList\n",
-      appliancesList
-    );
-    console.log(
-      "🥣 \n file: App.js:1918 \n Recipes.forEach \n ustensilsList\n",
-      ustensilsList
-    );
+    ListBuilder.fillFiltersLists();
   }
 }
 
