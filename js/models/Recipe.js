@@ -1,5 +1,3 @@
-console.log("hello world from Recipe.js");
-
 class Recipe {
   constructor(recipes) {
     this._id = recipes.id;
