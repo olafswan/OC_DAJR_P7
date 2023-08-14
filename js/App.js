@@ -1882,9 +1882,103 @@ class App {
     // const Recipes = recipesData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
 
+    // affichage des recettes
     this.showRecipes(this.$hardCodedRecipesData);
 
-    this.fillFiltersLists(this.$hardCodedRecipesData);
+    console.log(
+      "🚀 \n file: App.js:1888 \n main \n this.$hardCodedRecipesData\n",
+      this.$hardCodedRecipesData
+    );
+
+    // affichage des filtres
+    const searchLists = this.fillFiltersLists(this.$hardCodedRecipesData);
+
+    console.log(
+      "🚀 \n file: App.js:1891 \n main \n searchLists\n",
+      searchLists
+    );
+
+    let filteredRecipes = [];
+
+    // observation de la barre de recherche et detection de plus de 2 caractères
+    const searchBar = document.querySelector("#search");
+
+    searchBar.addEventListener("input", () => {
+      if (
+        !(typeof searchBar.value === "undefined") &&
+        searchBar.value.length > 3
+      ) {
+        console.log("\n\n------\n🚀 search about to launch 🚀\n------\n\n");
+        // remise à zéro des resultats
+        filteredRecipes = [];
+
+        // lancement de la recherche
+        this.mainSearch(
+          this.$hardCodedRecipesData,
+          searchBar.value,
+          filteredRecipes
+        );
+        console.log(
+          "\n\n------\n------\n📝 \n file: App.js:1903 \n main \n filterdRecipes\n------\n------\n\n",
+          filteredRecipes
+        );
+
+        if (filteredRecipes.length > 0) {
+          this.showRecipes(filteredRecipes);
+          // this.fillFiltersLists(this.filteredRecipes);
+        } else {
+          this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchBar.value}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
+          document.querySelector(".results-number").innerHTML = "";
+
+          // if (resultsNumber === 0) {
+
+          // }
+        }
+      }
+    });
+
+    // document
+    // .querySelector("#search")
+    // .addEventListener("input", () => this.getSearchValue());
+
+    // if (!(typeof searchString === "undefined")) {
+    //   this.mainSearch(this.$hardCodedRecipesData, searchString, filterdRecipes);
+    // }
+
+    // this.$hardCodedRecipesData.forEach((recipe) => {
+    //   let ingredientsString = "";
+
+    //   recipe.ingredients.forEach((ingredient) => {
+    //     ingredientsString.concat(" ", ingredient.ingredient);
+    //   });
+
+    //   console.log(
+    //     "🚀 \n file: App.js:1916 \n this.$hardCodedRecipesData.forEach \n ingredientsString\n",
+    //     ingredientsString
+    //   );
+
+    //   if (
+    //     searchString.includes(
+    //       recipe.name || recipe.description || ingredientsString
+    //     )
+    //   ) {
+    //     console.log("match!!!");
+    //   }
+
+    //   filterdRecipes.push(recipe);
+    // });
+
+    // console.log(
+    //   "🚀 \n file: App.js:1928 \n this.$hardCodedRecipesData.forEach \n filterdRecipes\n",
+    //   filterdRecipes
+    // );
+
+    // if (searchLists[0].includes())
+
+    // on a searchLists et searchStting
+
+    // if searchString
+    //   globalList.includes(searchValue.toLowerCase)
 
     // UPDATE code suivant délégué à la method showRecipes()...
     // const Recipes = this.$hardCodedRecipesData.map(
@@ -1911,9 +2005,9 @@ class App {
     // -----------------------------------------
     // création des listes ingrédients / appareils / ustensiles
     // -----------------------------------------
-    let ingredientsList = [];
-    let appliancesList = [];
-    let ustensilsList = [];
+    // let ingredientsList = [];
+    // let appliancesList = [];
+    // let ustensilsList = [];
 
     //   Recipes.forEach((recipe) => {
     //     // console.log(
@@ -1969,6 +2063,14 @@ class App {
   }
 
   showRecipes(recipeData) {
+    console.log(
+      "🚀 \n file: App.js:2062 \n showRecipes \n recipeData.length\n",
+      recipeData.length
+    );
+
+    // vide le champs des résultats
+    this.$recipesWrapper.innerHTML = "";
+
     const Recipes = recipeData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
 
@@ -1978,6 +2080,15 @@ class App {
       this.$recipesWrapper.appendChild(Template.createRecipeCard());
       // créer chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
     });
+
+    //afficher le nombre de recettes
+    const resultsNumberWrapper = document.querySelector(".results-number");
+
+    if (recipeData.length === 1) {
+      resultsNumberWrapper.innerHTML = `1 recette`;
+    } else if (recipeData.length > 1) {
+      resultsNumberWrapper.innerHTML = `${recipeData.length} recettes`;
+    }
   }
 
   fillFiltersLists(recipeData) {
@@ -1992,8 +2103,125 @@ class App {
       EnhancedRecipes.getUstensilsList()
     );
     ListBuilder.fillFiltersLists();
+    return [
+      EnhancedRecipes.getIngredientsList(),
+      EnhancedRecipes.getAppliancesList(),
+      EnhancedRecipes.getUstensilsList(),
+    ];
+  }
+
+  // getSearchValue() {
+  //   const searchString = document.querySelector("#search").value;
+
+  //   if (searchString.length > 2) {
+  //     console.log(
+  //       "🚀 \n file: App.js:2004 \n getSearchValue \n searchString\n",
+  //       searchString
+  //     );
+
+  //     return searchString;
+
+  //     // TODO si la recherche match avec une des variables des listes relancer l'affichage des recettes et celui des listes
+  //   }
+  // }
+
+  mainSearch(recipesArray, searchString, resultArray) {
+    recipesArray.forEach((recipe) => {
+      // variable pour stocker la liste des ingredients séparées par un espace
+      let ingredientsString = "";
+
+      // itération sur chaque ingrédient pour crééer la string listant les ingrédients
+      recipe.ingredients.forEach((ingredient) => {
+        // console.log(
+        //   "1) 🚀 \n file: App.js:2111 \n recipe.ingredients.forEach \n ingredient\n",
+        //   ingredient
+        // );
+
+        const thisIngredient = ingredient.ingredient;
+
+        // console.log(
+        //   "2) 🚀🚀 \n file: App.js:2114 \n recipe.ingredients.forEach \n thisIngredient\n",
+        //   typeof thisIngredient,
+        //   "\n",
+        //   thisIngredient
+        // );
+
+        // console.log(
+        //   "3) 🚀🚀🚀 \n file: App.js:2116 \n recipe.ingredients.forEach \n ingredientsString\n",
+        //   typeof ingredientsString,
+        //   "\n",
+        //   ingredientsString
+        // );
+
+        ingredientsString = ingredientsString.concat(" ", thisIngredient);
+
+        // console.log(
+        //   "4) 🚀🚀🚀🚀 \n file: App.js:2116 \n recipe.ingredients.forEach \n ingredientsString\n",
+        //   typeof ingredientsString,
+        //   "\n",
+        //   ingredientsString
+        // );
+      });
+      console.log(
+        "------\n",
+        recipe.name,
+        "\n\n🔎🔎🔎 \n\n searchString :\n",
+        searchString
+      );
+
+      console.log(
+        "1) 🚀 \n ingredientsString\n",
+
+        this.stringToArray(ingredientsString)
+      );
+
+      console.log(
+        "2) 🚀 \n recipe.description\n",
+
+        this.stringToArray(recipe.description)
+      );
+
+      console.log(
+        "3) 🚀 \n recipe.name\n",
+
+        "\n",
+        this.stringToArray(recipe.name)
+      );
+
+      // TODO convertir le string en array (cas de plusieurs mot pour faire un ofreach sur chacun des mots)
+      if (
+        this.stringToArray(recipe.name).includes(searchString) ||
+        this.stringToArray(recipe.description).includes(searchString) ||
+        this.stringToArray(ingredientsString).includes(searchString)
+      ) {
+        console.log(recipe.name, "\n\n\n 👍👍👍 match detected!!!\n------\n");
+        resultArray.push(recipe);
+      } else {
+        console.log(
+          recipe.name,
+          "\n\n\n 👎👎👎 match NOT detected!!!\n------\n"
+        );
+      }
+    });
+  }
+
+  stringToArray(string) {
+    // supression des caractères accentués
+    string = string.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+    // ajout des mots de plus de 3 caractères à un array
+    return string.match(/\b([A-zÀ-ú]{3,})\b/g);
   }
 }
+
+// matchfinder(searchValue, list) {
+//   // if searchValue
+
+//   // globalList.includes(searchValue.toLowerCase)
+
+//   // TODO voir où exactement recuper les listes ? dans app ? en tant que variables ?
+
+// }
 
 const app = new App();
 app.main();
