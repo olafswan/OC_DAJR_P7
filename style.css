@@ -118,6 +118,7 @@ main {
   position: relative;
   padding: 1rem 3rem;
   background-color: #ededed;
+  /* height: 50vh; */
 }
 
 .main-header {
@@ -240,12 +241,25 @@ main {
 
 .result-container {
   /* border: 1px dotted gray; */
-
   display: grid;
   /* width: 100%; */
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+}
+.search-error {
+  position: absolute;
+  top: 8rem;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  padding-top: 2rem;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  height: 50vh;
+  width: 100vw;
+  background-color: #ededed;
 }
 
 .recipe-card-wrapper {
