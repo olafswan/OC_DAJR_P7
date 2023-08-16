@@ -276,118 +276,118 @@ class App {
         appliance: "Four",
         ustensils: ["moule à tarte", "saladier", "fourchette"],
       },
-      {
-        id: 7,
-        image: "Recette07.jpg",
-        name: "Tartelettes au chocolat et aux fraises",
-        servings: 6,
-        ingredients: [
-          {
-            ingredient: "Pâte sablée",
-            quantity: 1,
-          },
-          {
-            ingredient: "Chocolat au lait",
-            quantity: 300,
-            unit: "grammes",
-          },
-          {
-            ingredient: "Crème liquide",
-            quantity: 80,
-            unit: "cl",
-          },
-          {
-            ingredient: "Beurre",
-            quantity: "30",
-            unit: "grammes",
-          },
-          {
-            ingredient: "Fraise",
-            quantity: 6,
-          },
-        ],
-        time: 50,
-        description:
-          "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
-        appliance: "Four",
-        ustensils: ["moule à tartelettes (6)", "casserole"],
-      },
-      {
-        id: 8,
-        image: "Recette08.jpg",
-        name: "Brownie",
-        servings: 10,
-        ingredients: [
-          {
-            ingredient: "Noix",
-            quantity: "180",
-            unit: "grammes",
-          },
-          {
-            ingredient: "Chocolat noir",
-            quantity: 150,
-            unit: "grammes",
-          },
-          {
-            ingredient: "Beurre",
-            quantity: 120,
-            unit: "grammes",
-          },
-          {
-            ingredient: "Oeuf",
-            quantity: 2,
-          },
-          {
-            ingredient: "Sucre en Poudre",
-            quantity: "110",
-            unit: "grammes",
-          },
-          {
-            ingredient: "farine",
-            quantity: 90,
-            unit: "grammes",
-          },
-        ],
-        time: 60,
-        description:
-          "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeufs et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
-        appliance: "Four",
-        ustensils: ["moule à gateaux", "casserole"],
-      },
-      {
-        id: 9,
-        image: "Recette09.jpg",
-        name: "Salade Méditerannéene fraîche au chèvre",
-        servings: 4,
-        ingredients: [
-          {
-            ingredient: "Concombre",
-            quantity: 1,
-          },
-          {
-            ingredient: "Olives",
-          },
-          {
-            ingredient: "Fromage de chèvre",
-            quantity: 150,
-            unit: "grammes",
-          },
-          {
-            ingredient: "Vinaigre Balsamic",
-          },
-          {
-            ingredient: "Huile d'olive",
-          },
-          {
-            ingredient: "Basilic",
-          },
-        ],
-        time: 15,
-        description:
-          "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
-        appliance: "Saladier",
-        ustensils: ["cuillère en bois", "couteau"],
-      },
+      // {
+      //   id: 7,
+      //   image: "Recette07.jpg",
+      //   name: "Tartelettes au chocolat et aux fraises",
+      //   servings: 6,
+      //   ingredients: [
+      //     {
+      //       ingredient: "Pâte sablée",
+      //       quantity: 1,
+      //     },
+      //     {
+      //       ingredient: "Chocolat au lait",
+      //       quantity: 300,
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Crème liquide",
+      //       quantity: 80,
+      //       unit: "cl",
+      //     },
+      //     {
+      //       ingredient: "Beurre",
+      //       quantity: "30",
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Fraise",
+      //       quantity: 6,
+      //     },
+      //   ],
+      //   time: 50,
+      //   description:
+      //     "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
+      //   appliance: "Four",
+      //   ustensils: ["moule à tartelettes (6)", "casserole"],
+      // },
+      // {
+      //   id: 8,
+      //   image: "Recette08.jpg",
+      //   name: "Brownie",
+      //   servings: 10,
+      //   ingredients: [
+      //     {
+      //       ingredient: "Noix",
+      //       quantity: "180",
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Chocolat noir",
+      //       quantity: 150,
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Beurre",
+      //       quantity: 120,
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Oeuf",
+      //       quantity: 2,
+      //     },
+      //     {
+      //       ingredient: "Sucre en Poudre",
+      //       quantity: "110",
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "farine",
+      //       quantity: 90,
+      //       unit: "grammes",
+      //     },
+      //   ],
+      //   time: 60,
+      //   description:
+      //     "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeufs et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
+      //   appliance: "Four",
+      //   ustensils: ["moule à gateaux", "casserole"],
+      // },
+      // {
+      //   id: 9,
+      //   image: "Recette09.jpg",
+      //   name: "Salade Méditerannéene fraîche au chèvre",
+      //   servings: 4,
+      //   ingredients: [
+      //     {
+      //       ingredient: "Concombre",
+      //       quantity: 1,
+      //     },
+      //     {
+      //       ingredient: "Olives",
+      //     },
+      //     {
+      //       ingredient: "Fromage de chèvre",
+      //       quantity: 150,
+      //       unit: "grammes",
+      //     },
+      //     {
+      //       ingredient: "Vinaigre Balsamic",
+      //     },
+      //     {
+      //       ingredient: "Huile d'olive",
+      //     },
+      //     {
+      //       ingredient: "Basilic",
+      //     },
+      //   ],
+      //   time: 15,
+      //   description:
+      //     "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
+      //   appliance: "Saladier",
+      //   ustensils: ["cuillère en bois", "couteau"],
+      // },
       // {
       //   id: 10,
       //   image: "Recette10.jpg",
@@ -1865,6 +1865,7 @@ class App {
       //   appliance: "Four",
       //   ustensils: ["rouleau à patisserie", "fouet"],
       // },
+      // END
     ];
   }
 
@@ -1901,13 +1902,26 @@ class App {
     let filteredRecipes = [];
 
     // observation de la barre de recherche et detection de plus de 2 caractères
+    // affichage de l'ensemble des recettes
     const searchBar = document.querySelector("#search");
 
     searchBar.addEventListener("input", () => {
+      console.log("-- new input --");
       if (
-        !(typeof searchBar.value === "undefined") &&
-        searchBar.value.length > 3
+        // cas où la search bar est vide ou contient moins de 3 caractères
+        // => affichage de l'ensemble des recettes
+        typeof searchBar.value === "undefined" ||
+        searchBar.value.length < 3
       ) {
+        console.log("CAS 1 : UNDEFINED OU < DE 3 LETTRES");
+        this.showRecipes(this.$hardCodedRecipesData);
+      } else if (
+        // cas où la search bar contient plus de 2 caractères
+        // => lancement d'une recherche
+        !(typeof searchBar.value === "undefined") &&
+        searchBar.value.length > 2
+      ) {
+        console.log("CAS 2 : CORRESPONDANCE TROUVEE");
         console.log("\n\n------\n🚀 search about to launch 🚀\n------\n\n");
         // remise à zéro des resultats
         filteredRecipes = [];
@@ -1915,7 +1929,7 @@ class App {
         // lancement de la recherche
         this.mainSearch(
           this.$hardCodedRecipesData,
-          searchBar.value,
+          searchBar.value.toLowerCase(),
           filteredRecipes
         );
         console.log(
@@ -1924,17 +1938,47 @@ class App {
         );
 
         if (filteredRecipes.length > 0) {
+          // cas où des résultats sont trouvés
+          // => affichage des résultats
+          console.log("RECETTES TROUVEES");
           this.showRecipes(filteredRecipes);
-          // this.fillFiltersLists(this.filteredRecipes);
+          this.fillFiltersLists(filteredRecipes);
         } else {
-          this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchBar.value}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
-          document.querySelector(".results-number").innerHTML = "";
+          // cas où aucun résultat n'est trouvé
+          // => affichage du message d'erreur
+          console.log("CAS 3 : PAS DE CORRESPONDANCE TROUVEE");
+          setTimeout(() => {
+            console.log("CAS 3.1 : PAS DE CORRESPONDANCE TROUVEE");
 
-          // if (resultsNumber === 0) {
-
-          // }
+            if (filteredRecipes.length === 0 && searchBar.value.length > 2) {
+              this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchBar.value}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
+              document.querySelector(".results-number").innerHTML = "";
+            }
+          }, 1000);
         }
       }
+    });
+
+    const ingredientsSearch = document.querySelector("#ingredientsSearch");
+    const appliancesSearch = document.querySelector("#appliancesSearch");
+    const ustensilsSearch = document.querySelector("#ustensilsSearch");
+    const searchOptions = [
+      ingredientsSearch,
+      appliancesSearch,
+      ustensilsSearch,
+    ];
+
+    searchOptions.forEach((option) => {
+      option.addEventListener("input", () => {
+        console.log(
+          "-- \nnew input in option search\n--",
+          option,
+          option.value
+        );
+
+        this.optionTrimmer(option, this.normalize(option.value));
+        // utiliser l'option selectionnée pour trim la list
+      });
     });
 
     // document
@@ -2093,9 +2137,10 @@ class App {
 
   fillFiltersLists(recipeData) {
     const EnhancedRecipes = new RecipesData(recipeData);
-    // console.log("🥒 🥒 🥒 \n ", EnhancedRecipes.getIngredientsList());
-    // console.log("🎛 🎛 🎛 \n ", EnhancedRecipes.getAppliancesList());
-    // console.log("🥣 🥣 🥣 \n ", EnhancedRecipes.getUstensilsList());
+    console.log("------ \n fillFiltersLists function called!!! ------\n");
+    console.log("🥒 🥒 🥒 \n ", EnhancedRecipes.getIngredientsList());
+    console.log("🎛 🎛 🎛 \n ", EnhancedRecipes.getAppliancesList());
+    console.log("🥣 🥣 🥣 \n ", EnhancedRecipes.getUstensilsList());
 
     const ListBuilder = new FilterList(
       EnhancedRecipes.getIngredientsList(),
@@ -2137,7 +2182,7 @@ class App {
         //   ingredient
         // );
 
-        const thisIngredient = ingredient.ingredient;
+        const thisIngredient = ingredient.ingredient.toLowerCase();
 
         // console.log(
         //   "2) 🚀🚀 \n file: App.js:2114 \n recipe.ingredients.forEach \n thisIngredient\n",
@@ -2178,21 +2223,94 @@ class App {
       console.log(
         "2) 🚀 \n recipe.description\n",
 
-        this.stringToArray(recipe.description)
+        this.stringToArray(recipe.description.toLowerCase())
       );
 
       console.log(
         "3) 🚀 \n recipe.name\n",
 
         "\n",
-        this.stringToArray(recipe.name)
+        this.stringToArray(recipe.name.toLowerCase())
       );
 
-      // TODO convertir le string en array (cas de plusieurs mot pour faire un ofreach sur chacun des mots)
+      // TODO convertir le string en array (cas de plusieurs mot pour faire un foreach sur chacun des mots)
+
+      // START VERSION multi WORD
+      //   const searchArray = this.stringToArray(searchString);
+
+      //   console.log("🚀 \n file: App.js:2198 \n recipesArray.forEach \n searchArray\n", searchArray);
+
+      //   searchArray.forEach((searchTerm) => {
+
+      //   if (
+      //     this.stringToArray(recipe.name).includes(searchTerm) ||
+      //     this.stringToArray(recipe.description).includes(searchTerm) ||
+      //     this.stringToArray(ingredientsString).includes(searchTerm)
+      //   ) {
+      //     console.log(recipe.name, "\n\n\n 👍👍👍 match detected!!!\n------\n");
+      //     resultArray.push(recipe);
+      //   } else {
+      //     console.log(
+      //       recipe.name,
+      //       "\n\n\n 👎👎👎 match NOT detected!!!\n------\n"
+      //     );
+      //   }
+      // })
+      // END VERSION multi WORD
+
+      // START VERSION 1 WORD
+      // console.log(
+      //   searchString,
+      //   "détécté dans la liste d'ingrédients de ",
+      //   recipe.name,
+      //   "?\n\n",
+      //   this.stringToArray(ingredientsString).includes(searchString)
+      // );
+      // console.log(
+      //   searchString,
+      //   "détécté dans la description de ",
+      //   recipe.name,
+      //   "?\n\n",
+      //   this.stringToArray(recipe.description).includes(searchString)
+      // );
+      // console.log(
+      //   searchString,
+      //   "détécté dans le titre de ",
+      //   recipe.name,
+      //   "?\n\n",
+      //   this.stringToArray(recipe.name).includes(searchString)
+      // );
+
+      const recipeNameArray = this.stringToArray(recipe.name);
+      const recipeDescriptionArray = this.stringToArray(recipe.description);
+      const recipeIngredientsArray = this.stringToArray(ingredientsString);
+
+      console.log(
+        searchString,
+        "détécté dans la liste d'ingrédients de ",
+        recipe.name,
+        "?\n\n",
+        recipeIngredientsArray.includes(searchString)
+      );
+      console.log(
+        searchString,
+        "détécté dans la description de ",
+        recipe.name,
+        "?\n\n",
+        recipeDescriptionArray.includes(searchString)
+      );
+      console.log(
+        searchString,
+        "détécté dans le titre de ",
+        recipe.name,
+        "?\n\n",
+        recipeNameArray.includes(searchString)
+      );
+
       if (
-        this.stringToArray(recipe.name).includes(searchString) ||
-        this.stringToArray(recipe.description).includes(searchString) ||
-        this.stringToArray(ingredientsString).includes(searchString)
+        recipeNameArray.includes(searchString) ||
+        recipeDescriptionArray.includes(searchString) ||
+        recipeIngredientsArray.includes(searchString)
       ) {
         console.log(recipe.name, "\n\n\n 👍👍👍 match detected!!!\n------\n");
         resultArray.push(recipe);
@@ -2202,15 +2320,57 @@ class App {
           "\n\n\n 👎👎👎 match NOT detected!!!\n------\n"
         );
       }
+
+      // if (
+      //   this.stringToArray(recipe.name).includes(searchString) ||
+      //   this.stringToArray(recipe.description).includes(searchString) ||
+      //   this.stringToArray(ingredientsString).includes(searchString)
+      // ) {
+      //   console.log(recipe.name, "\n\n\n 👍👍👍 match detected!!!\n------\n");
+      //   resultArray.push(recipe);
+      // } else {
+      //   console.log(
+      //     recipe.name,
+      //     "\n\n\n 👎👎👎 match NOT detected!!!\n------\n"
+      //   );
+      // }
+      // END VERSION 1 WORD
+
+      // TODO fix the bug : en metant ajouter il y a des resultat mais le message d'erreur s'affiche
     });
+  }
+
+  normalize(string) {
+    // supression des caractères accentués
+    string = string.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+    return string.toLowerCase();
   }
 
   stringToArray(string) {
     // supression des caractères accentués
-    string = string.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+    string = this.normalize(string);
 
     // ajout des mots de plus de 3 caractères à un array
     return string.match(/\b([A-zÀ-ú]{3,})\b/g);
+  }
+
+  optionTrimmer(option, value) {
+    const selectOptionsContainer = option.parentNode.parentNode.querySelector(
+      ".select-options-container"
+    );
+
+    const selectOptions =
+      selectOptionsContainer.querySelectorAll(".select-option");
+
+    selectOptions.forEach((option) => {
+      option.style.display = "block";
+      if (!this.normalize(option.innerText).includes(value)) {
+        option.style.display = "none";
+      }
+    });
+
+    //parentNode
   }
 }
 
