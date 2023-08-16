@@ -9,6 +9,8 @@ class FilterList {
     const filterContainer = document.querySelector(`#${listName}`);
     const $wrapper = filterContainer.querySelector(".select-options-container");
 
+    $wrapper.innerHTML = "";
+
     listId.forEach((item) => {
       const option = document.createElement("p");
       option.classList.add("select-option");
