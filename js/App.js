@@ -1959,6 +1959,9 @@ class App {
       }
     });
 
+    // TRI DES OPTIONS DANS LA LISTE
+
+    // ciblage des containers des search bars
     const ingredientsSearch = document.querySelector("#ingredientsSearch");
     const appliancesSearch = document.querySelector("#appliancesSearch");
     const ustensilsSearch = document.querySelector("#ustensilsSearch");
@@ -1980,6 +1983,117 @@ class App {
         // utiliser l'option selectionnée pour trim la list
       });
     });
+
+    // SELECTIONS D'OPTIONS DANS LA LISTE
+    this.optionSelection();
+
+    // // ciblage des containers des options
+    // const ingredientsOptionsContainer = document.querySelector(
+    //   "#ingredientsOptions"
+    // );
+    // const appliancesOptionsContainer =
+    //   document.querySelector("#appliancesOptions");
+    // const ustensilsOptionsContainer =
+    //   document.querySelector("#ustensilsOptions");
+    // const filterOptionsContainer = [
+    //   ingredientsOptionsContainer,
+    //   appliancesOptionsContainer,
+    //   ustensilsOptionsContainer,
+    // ];
+
+    // // // ciblage des options dans les containers
+    // // const ingredientsOptions =
+    // //   ingredientsOptionsContainer.querySelectorAll(".select-options");
+    // // const appliancesOptions =
+    // //   appliancesOptionsContainer.querySelectorAll(".select-options");
+    // // const ustensilsOptions =
+    // //   ustensilsOptionsContainer.querySelectorAll(".select-options");
+    // // const filterOptions = [
+    // //   ingredientsOptions,
+    // //   appliancesOptions,
+    // //   ustensilsOptions,
+    // // ];
+
+    // // ciblage des
+
+    // filterOptionsContainer.forEach((optionContainer) => {
+    //   //cible toutes les options
+    //   const filterOptions = optionContainer.querySelectorAll(".select-option");
+
+    //   filterOptions.forEach((option) => {
+    //     option.addEventListener("click", (e) => {
+    //       const selectOptions = e.target;
+    //       const $wrapper = optionContainer.querySelector(".selected-container");
+
+    //       console.log(
+    //         "🚀 \n file: App.js:2027 \n option.addEventListener \n wrapper\n",
+    //         $wrapper
+    //       );
+
+    //       // 1) afficher la yellow card de l'option choisie en tête de liste
+    //       // // création  d'un container div
+    //       // const selectedContainer = document.createElement("div");
+    //       // // attribution de la classe CSS à l'element
+    //       // selectedContainer.classList.add("selected-container");
+    //       // créartion du container du tag
+    //       const selectedWrapper = document.createElement("div");
+    //       selectedWrapper.classList.add("select-wrapper");
+
+    //       // création d'un element HTML p
+    //       const selectedOption = document.createElement("p");
+    //       // ajout du texte
+    //       selectedOption.innerText = selectOptions.innerText;
+    //       // attribution de la classe CSS à l'element
+    //       selectedOption.classList.add("select-option", "selected-option");
+    //       // // ajout de l'element à son container
+
+    //       const close = document.createElement("i");
+    //       close.classList.add("fa-solid", "fa-x");
+
+    //       console.log(
+    //         "🚀 \n file: App.js:2051 \n option.addEventListener \n close\n",
+    //         close
+    //       );
+
+    //       selectedWrapper.appendChild(selectedOption);
+    //       selectedWrapper.appendChild(close);
+    //       // TODO pourquoi l'element close n'est pas injecté ???
+    //       $wrapper.appendChild(selectedWrapper);
+
+    //       // tagWrapper.appendChild(close);
+
+    //       // selectedContainer.appendChild(selectedOption);
+    //       // // ajout du container à son emplacement
+    //       // optionContainer.prepend(selectedContainer);
+    //       // $wrapper.appendChild(selectedOption);
+
+    //       // 2) supprimer l'option choisie de la liste
+    //       selectOptions.classList.add("hide");
+
+    //       // 3) afficher la yellow card de l'option choisie sous la div de class filters
+    //       const tagContainer = document.querySelector(".tag-container");
+
+    //       const tagWrapper = document.createElement("div");
+    //       tagWrapper.classList.add("tag-card");
+    //       const tag = document.createElement("p");
+    //       tag.classList.add("tag");
+    //       tag.innerText = selectOptions.innerText;
+
+    //       const closeTag = document.createElement("i");
+    //       closeTag.classList.add("fa-solid", "fa-x");
+
+    //       tagWrapper.appendChild(tag);
+    //       tagWrapper.appendChild(closeTag);
+    //       tagContainer.appendChild(tagWrapper);
+
+    //       // 4) lancer un tri avec l'option choisie
+    //       console.log(optionContainer);
+
+    //       // 5) gérer la supression de l'option
+    //     });
+    //   });
+    // });
+    // END SELECTIONS D'OPTIONS DANS LA LISTE
 
     // document
     // .querySelector("#search")
@@ -2371,6 +2485,117 @@ class App {
     });
 
     //parentNode
+  }
+
+  optionSelection() {
+    // SELECTIONS D'OPTIONS DANS LA LISTE
+
+    // // ciblage des containers des options
+    const ingredientsOptionsContainer = document.querySelector(
+      "#ingredientsOptions"
+    );
+    const appliancesOptionsContainer =
+      document.querySelector("#appliancesOptions");
+    const ustensilsOptionsContainer =
+      document.querySelector("#ustensilsOptions");
+    const filterOptionsContainer = [
+      ingredientsOptionsContainer,
+      appliancesOptionsContainer,
+      ustensilsOptionsContainer,
+    ];
+
+    // // ciblage des options dans les containers
+    // const ingredientsOptions =
+    //   ingredientsOptionsContainer.querySelectorAll(".select-options");
+    // const appliancesOptions =
+    //   appliancesOptionsContainer.querySelectorAll(".select-options");
+    // const ustensilsOptions =
+    //   ustensilsOptionsContainer.querySelectorAll(".select-options");
+    // const filterOptions = [
+    //   ingredientsOptions,
+    //   appliancesOptions,
+    //   ustensilsOptions,
+    // ];
+
+    // ciblage des
+
+    filterOptionsContainer.forEach((optionContainer) => {
+      //cible toutes les options
+      const filterOptions = optionContainer.querySelectorAll(".select-option");
+
+      filterOptions.forEach((option) => {
+        option.addEventListener("click", (e) => {
+          const selectOptions = e.target;
+          const $wrapper = optionContainer.querySelector(".selected-container");
+
+          console.log(
+            "🚀 \n file: App.js:2027 \n option.addEventListener \n wrapper\n",
+            $wrapper
+          );
+
+          // 1) afficher la yellow card de l'option choisie en tête de liste
+          // // création  d'un container div
+          // const selectedContainer = document.createElement("div");
+          // // attribution de la classe CSS à l'element
+          // selectedContainer.classList.add("selected-container");
+          // créartion du container du tag
+          const selectedWrapper = document.createElement("div");
+          selectedWrapper.classList.add("select-wrapper");
+
+          // création d'un element HTML p
+          const selectedOption = document.createElement("p");
+          // ajout du texte
+          selectedOption.innerText = selectOptions.innerText;
+          // attribution de la classe CSS à l'element
+          selectedOption.classList.add("select-option", "selected-option");
+          // // ajout de l'element à son container
+
+          const close = document.createElement("i");
+          close.classList.add("fa-solid", "fa-x");
+
+          console.log(
+            "🚀 \n file: App.js:2051 \n option.addEventListener \n close\n",
+            close
+          );
+
+          selectedWrapper.appendChild(selectedOption);
+          selectedWrapper.appendChild(close);
+          // TODO pourquoi l'element close n'est pas injecté ???
+          $wrapper.appendChild(selectedWrapper);
+
+          // tagWrapper.appendChild(close);
+
+          // selectedContainer.appendChild(selectedOption);
+          // // ajout du container à son emplacement
+          // optionContainer.prepend(selectedContainer);
+          // $wrapper.appendChild(selectedOption);
+
+          // 2) supprimer l'option choisie de la liste
+          selectOptions.classList.add("hide");
+
+          // 3) afficher la yellow card de l'option choisie sous la div de class filters
+          const tagContainer = document.querySelector(".tag-container");
+
+          const tagWrapper = document.createElement("div");
+          tagWrapper.classList.add("tag-card");
+          const tag = document.createElement("p");
+          tag.classList.add("tag");
+          tag.innerText = selectOptions.innerText;
+
+          const closeTag = document.createElement("i");
+          closeTag.classList.add("fa-solid", "fa-x");
+
+          tagWrapper.appendChild(tag);
+          tagWrapper.appendChild(closeTag);
+          tagContainer.appendChild(tagWrapper);
+
+          // 4) lancer un tri avec l'option choisie
+          console.log(optionContainer);
+
+          // 5) gérer la supression de l'option
+        });
+      });
+    });
   }
 }
 
