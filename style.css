@@ -165,12 +165,14 @@ main {
   color: #000;
 }
 
+/* up affiché menu ouvert */
 .up {
-  display: none;
+  /* display: none; */
 }
 
+/* down affiché menu fermé */
 .down {
-  display: block;
+  /* display: block; */
 }
 
 .hide {
@@ -243,6 +245,9 @@ main {
   margin: 4px 8px;
   /* border: 1px solid lavender; */
 }
+.select-option:hover {
+  cursor: pointer;
+}
 
 .select-wrapper i {
   margin-right: 8px;
@@ -255,6 +260,15 @@ main {
   padding: 1px;
   border-radius: 50%;
   font-weight: bold;
+}
+.select-wrapper i:hover,
+.tag-card i:hover,
+.select-header i:hover {
+  cursor: pointer;
+}
+
+.select-wrapper p:hover {
+  cursor: default;
 }
 
 .selected-container {
