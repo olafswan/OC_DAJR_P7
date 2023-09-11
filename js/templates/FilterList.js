@@ -19,6 +19,8 @@ class FilterList {
     });
   }
 
+  // algoV2
+
   fillFiltersLists() {
     this.filterFiller(this._ingredientsList, "ingredients");
     this.filterFiller(this._appliancesList, "appliances");
