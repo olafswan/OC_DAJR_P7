@@ -2240,14 +2240,25 @@ class App {
   }
 
   launchStringSearch(searchSentence) {
+    // si pas de tag remettre par défaut la liste de recette
+
+    if (this.selectedTags.replace(/\s/g, "").length < 1) {
+      console.log("pas de tag séléctionnés");
+      this.currentRecipesList = this.$hardCodedRecipesData;
+    } else {
+      console.log("tags séléctionnés");
+    }
+
     if (
-      // cas où la search bar est vide ou contient moins de 3 caractères
+      // cas où la search bar est vide ou contient moins de 3 caractères et présence de tags
       // => affichage de l'ensemble des recettes
       typeof searchSentence === "undefined" ||
       searchSentence.length < 3
     ) {
       // console.log("CAS 1 : UNDEFINED OU < DE 3 LETTRES");
       this.showRecipes(this.currentRecipesList);
+      this.fillFiltersLists(this.currentRecipesList);
+      this.optionSelection();
     } else if (
       // cas où la search bar contient plus de 2 caractères
       // => lancement d'une recherche
@@ -2280,6 +2291,7 @@ class App {
         this.showRecipes(filteredRecipes);
         this.fillFiltersLists(filteredRecipes);
         this.optionSelection();
+        this.currentRecipesList = filteredRecipes;
       } else {
         // // V1 avec timeout
         // // cas où aucun résultat n'est trouvé
@@ -2506,6 +2518,7 @@ class App {
     // console.log("🚀 \n resultArray après fin du tri \n", resultArray);
 
     // retourne un tableau des recettes filtrées
+    // this.currentRecipesList = resultArray;
     return resultArray;
   }
 
@@ -2681,14 +2694,20 @@ class App {
 
           // ici on appelle mainSearch(currentRecipesList, searchString)
 
-          // console.log("avant tri par tags \n", this.currentRecipesList);
+          console.log(
+            "avant tri par tags (this.currentRecipesList)\n",
+            this.currentRecipesList
+          );
 
           this.currentRecipesList = this.mainSearch(
             this.currentRecipesList,
             this.selectedTags
           );
 
-          console.log("après tri par tags \n", this.currentRecipesList);
+          console.log(
+            "après tri par tags (this.currentRecipesList)\n",
+            this.currentRecipesList
+          );
 
           this.showRecipes(this.currentRecipesList);
           // TODO la methode suivante vient effacer la selection déja faite
@@ -2743,7 +2762,7 @@ class App {
               // comportement suivant le nombre de tags
               if (this.selectedTags.replace(/\s/g, "").length > 1) {
                 // présence de tags après suppression
-                // console.log("présence de tags sélectionnés");
+                console.log("présence de tags sélectionnés");
                 this.currentRecipesList = this.mainSearch(
                   this.$hardCodedRecipesData,
                   this.selectedTags
@@ -2754,7 +2773,7 @@ class App {
                 this.optionSelection();
               } else {
                 // absence de tags après suppression
-                // console.log("plus de tag selectionnés");
+                console.log("plus de tag selectionnés");
                 this.currentRecipesList = this.$hardCodedRecipesData;
 
                 this.launchStringSearch(this.searchString);
