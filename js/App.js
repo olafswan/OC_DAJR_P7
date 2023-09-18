@@ -2392,83 +2392,85 @@ class App {
   //   }
   // }
 
+  // METHOD DE TRI DES RECETTES
   mainSearch(recipesArray, searchString) {
-    // console.log(
-    //   "liste des recettes dans la variable `recipesArray`",
-    //   recipesArray,
-    //   "`recipesArray`",
-    //   recipesArray.length
-    // );
-
-    // console.log("avant spread operator", recipesArray);
-    // console.log(recipesArray.length);
-
-    // 1) copie de toutes les recettes  dans la liste de résultat
+    // copie de toutes les recettes  dans la liste de résultat
     let resultArray = [...recipesArray];
+
+    // itéartion sur la liste des recettes
     recipesArray.forEach((recipe) => {
-      // console.log(recipe.name, "\nid recette:", recipe.id);
+      console.log(recipe.name, "\nid recette:", recipe.id);
 
-      // console.log("🚀 \n file: App.js:2319 \n mainSearch \n recipe\n", recipe);
-
-      // 2) verification de chaque recette
-      // console.log(
-      //   "\n------\nRECETTE :\n",
-      //   recipe.name,
-      //   "\n🔎🔎🔎 \n mot(s) recherchés :\n",
-      //   searchString,
-      //   "\n"
-      // );
-
-      // variable pour stocker la liste des ingredients séparées par un espace
+      // variable pour stocker la liste des ingredients
       let ingredientsString = "";
 
-      // itération sur chaque ingrédient pour crééer la string listant les ingrédients
+      // itération sur chaque ingrédient pour créer la liste des ingredients séparées par un espace
       recipe.ingredients.forEach((ingredient) => {
         const thisIngredient = ingredient.ingredient.toLowerCase();
-
         ingredientsString = ingredientsString.concat(" ", thisIngredient);
       });
+
+      // variable pour stocker la liste des appareils
+      const appliancesArray = this.stringToArray(
+        this.normalize(recipe.appliance)
+      );
+      // variable pour stocker la liste des ustensiles
+      let ustensilsArray = this.stringToArray(
+        this.normalize(recipe.ustensils.join(" "))
+      );
+
+      console.log(
+        "🚀 \n file: App.js:2420 \n recipesArray.forEach \n ustensilsArray\n",
+        ustensilsArray
+      );
 
       // converti le string de la recherche en array
       const searchArray = this.stringToArray(searchString);
 
-      // console.log(
-      //   "1) 🚀 \n searchArray\n tableau des mots recherchés\n",
+      console.log(
+        "1) 🚀 \n searchArray\n tableau des mots recherchés\n",
 
-      //   "\n",
-      //   searchArray
-      // );
-
-      const recipeNameArray = this.stringToArray(recipe.name);
-      const recipeDescriptionArray = this.stringToArray(recipe.description);
-      const recipeIngredientsArray = this.stringToArray(ingredientsString);
-
-      // 3) tous les mots à vérifier pour valider la recette sont dans un tableau
-      const recipeArray = recipeNameArray.concat(
-        recipeDescriptionArray,
-        recipeIngredientsArray
+        "\n",
+        searchArray
       );
 
-      // console.log(
-      //   "2) 🚀 \n recipeArray\n tableau des mots de la recette\n",
-      //   recipe.name,
-      //   "\n",
-      //   recipeArray
-      // );
+      // création de l'array listant les mots du titre de la recette
+      const recipeNameArray = this.stringToArray(recipe.name);
+      // création de l'array listant les mots de la description de la recette
+      const recipeDescriptionArray = this.stringToArray(recipe.description);
+      // création de l'array listant les mots des ingredients de la recette
+      const recipeIngredientsArray = this.stringToArray(ingredientsString);
 
-      // 4) vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette
+      // concaténation de tous les mots à vérifier pour valider la recette dans un seul tableau
+      const recipeArray = recipeNameArray.concat(
+        recipeDescriptionArray,
+        recipeIngredientsArray,
+        appliancesArray,
+        recipe.ustensils
+      );
+
+      console.log(
+        "2) 🚀 \n recipeArray\n tableau des mots de la recette\n",
+        recipe.name,
+        "\n",
+        recipeArray
+      );
+
+      // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette
       searchArray.forEach((searchWord) => {
-        if (!recipeArray.includes(searchWord)) {
-          // si l'un des mots est absent la recette est supprimée du tabelau des résultats
-          // console.log(
-          //   "\nle mot ",
-          //   searchWord,
-          //   " est absent de la recette ",
-          //   recipe.name,
-          //   "\n👎👎👎 match NOT detected!!!\n------\n"
-          // );
+        if (
+          // si l'un des mots est absent, la recette doit être supprimée du tableau des résultats
+          !recipeArray.includes(searchWord)
+        ) {
+          console.log(
+            "\nle mot ",
+            searchWord,
+            " est absent de la recette ",
+            recipe.name,
+            "\n👎👎👎 match NOT detected!!!\n------\n"
+          );
 
-          // recherche de l'index de la recette
+          // recherche de l'index de la recette à supprimer
           const index = resultArray.indexOf(recipe);
 
           // console.log(
@@ -2480,15 +2482,16 @@ class App {
           if (index != -1) {
             resultArray.splice(index, 1);
           }
-        } else {
-          // si le mot est présent la recette est conservéedans le tabelau des résultats
-          // console.log(
-          //   "\nle mot ",
-          //   searchWord,
-          //   " est présent dans la recette ",
-          //   recipe.name,
-          //   "\n👍👍👍 match detected!!!\n------\n"
-          // );
+        }
+        // si le mot est présent la recette doit être conservée dans le tabelau des résultats
+        else {
+          console.log(
+            "\nle mot ",
+            searchWord,
+            " est présent dans la recette ",
+            recipe.name,
+            "\n👍👍👍 match detected!!!\n------\n"
+          );
         }
 
         // console.log(
