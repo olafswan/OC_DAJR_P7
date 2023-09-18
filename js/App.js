@@ -1905,7 +1905,7 @@ class App {
     // );
 
     // affichage des filtres
-    const searchLists = this.fillFiltersLists(this.currentRecipesList);
+    this.fillFiltersLists(this.currentRecipesList);
 
     // console.log(
     //   "🚀 \n searchLists \n tableau des ingrédients, des appareils et des ustensiles :\n",
@@ -2242,11 +2242,10 @@ class App {
   launchStringSearch(searchSentence) {
     // si pas de tag remettre par défaut la liste de recette
 
+    // si aucun tag n'est séléctionné
     if (this.selectedTags.replace(/\s/g, "").length < 1) {
-      console.log("pas de tag séléctionnés");
+      // reset de la liste de recette en cours
       this.currentRecipesList = this.$hardCodedRecipesData;
-    } else {
-      console.log("tags séléctionnés");
     }
 
     if (
@@ -2557,250 +2556,229 @@ class App {
     //parentNode
   }
 
+  // METHOD POUR LA GESTION DES INTERACTIONS SUR LES TAGS
   optionSelection() {
-    // method pour autoriser la séléction de tag
-
-    // // ciblage des containers des options
+    // ciblage du container des tags ingrédients
     const ingredientsOptionsContainer = document.querySelector(
       "#ingredientsOptions"
     );
+    // ciblage du container des tags appareils
     const appliancesOptionsContainer =
       document.querySelector("#appliancesOptions");
+    // ciblage du container des tags ustensils
     const ustensilsOptionsContainer =
       document.querySelector("#ustensilsOptions");
+    // tableau des 3 container des 3 types de tags
     const filterOptionsContainer = [
       ingredientsOptionsContainer,
       appliancesOptionsContainer,
       ustensilsOptionsContainer,
     ];
 
-    // // ciblage des options dans les containers
-    // const ingredientsOptions =
-    //   ingredientsOptionsContainer.querySelectorAll(".select-options");
-    // const appliancesOptions =
-    //   appliancesOptionsContainer.querySelectorAll(".select-options");
-    // const ustensilsOptions =
-    //   ustensilsOptionsContainer.querySelectorAll(".select-options");
-    // const filterOptions = [
-    //   ingredientsOptions,
-    //   appliancesOptions,
-    //   ustensilsOptions,
-    // ];
-
-    // ciblage des
-
+    // itéaration sur chacun des 3 containers de tags
     filterOptionsContainer.forEach((optionContainer) => {
-      //cible toutes les options
+      //node list de tous les tags
       const filterOptions = optionContainer.querySelectorAll(".select-option");
 
+      // itération sur chaque tag
       filterOptions.forEach((option) => {
+        // ajout d'un écouteur de click
         option.addEventListener("click", (e) => {
+          // tag clické
           const selectOptions = e.target;
-          const $wrapper = optionContainer.querySelector(".selected-container");
+          // zone d'affichage des tags séléctionné
+          const $wrapper = optionContainer.parentNode.querySelector(
+            ".selected-container"
+          );
 
+          // ajout du string du tag séléctionné à la liste des tags séléctionnés
           this.selectedTags = this.selectedTags.concat(
             " ",
             selectOptions.innerText
           );
 
-          console.log("🚀 \n  selectedTags\n", this.selectedTags);
+          // 1) afficher du tag en tête de liste
 
-          // console.log(
-          //   "🚀 \n file: App.js:2027 \n option.addEventListener \n wrapper\n",
-          //   $wrapper
-          // );
-
-          // TODO fixer le problème de l'effacement du tag
-
-          // 1) afficher la yellow card de l'option choisie en tête de liste
-          // // création  d'un container div
-          // const selectedContainer = document.createElement("div");
-          // // attribution de la classe CSS à l'element
-          // selectedContainer.classList.add("selected-container");
-          // créartion du container du tag
+          // création  du container du tag
           const selectedWrapper = document.createElement("div");
           selectedWrapper.classList.add("select-wrapper");
-
-          // console.log(
-          //   "🚀 \n file: App.js:2598 \n option.addEventListener \n selectedWrapper\n",
-          //   selectedWrapper
-          // );
-
-          // création d'un element HTML p
+          // création de l'element p du tag
           const selectedOption = document.createElement("p");
-          // ajout du texte
           selectedOption.innerText = selectOptions.innerText;
-
-          // console.log(
-          //   "🚀 \n file: App.js:2606 \n option.addEventListener \n selectedOption\n",
-          //   selectedOption
-          // );
-
-          // attribution de la classe CSS à l'element
           selectedOption.classList.add("select-option", "selected-option");
-          // // ajout de l'element à son container
-
+          // création de l'element i du tag
           const close = document.createElement("i");
           close.classList.add("fa-solid", "fa-x");
-
-          // console.log(
-          //   "🚀 \n file: App.js:2051 \n option.addEventListener \n close\n",
-          //   close
-          // );
-
+          // ajout des elements à leur container
           selectedWrapper.appendChild(selectedOption);
           selectedWrapper.appendChild(close);
-          // TODO pourquoi l'element close n'est pas injecté ???
           $wrapper.appendChild(selectedWrapper);
 
-          console.log(
-            "🚀 \n file: App.js:2630 \n option.addEventListener \n selectedWrapper\n",
-            selectedWrapper
-          );
-
-          console.log(
-            "🚀 \n file: App.js:2630 \n option.addEventListener \n $wrapper\n",
-            $wrapper
-          );
-
-          // tagWrapper.appendChild(close);
-
-          // selectedContainer.appendChild(selectedOption);
-          // // ajout du container à son emplacement
-          // optionContainer.prepend(selectedContainer);
-          // $wrapper.appendChild(selectedOption);
-
-          // 2) supprimer l'option choisie de la liste
-          selectOptions.classList.add("hide");
-
-          // 3) afficher la yellow card de l'option choisie sous la div de class filters
+          // 2) afficher du tag en dessous des listes
+          // zone d'affichage des tags séléctionnés
           const tagContainer = document.querySelector(".tag-container");
 
+          // création  du tag
           const tagWrapper = document.createElement("div");
           tagWrapper.classList.add("tag-card");
           const tag = document.createElement("p");
           tag.classList.add("tag");
           tag.innerText = selectOptions.innerText;
-
           const closeTag = document.createElement("i");
           closeTag.classList.add("fa-solid", "fa-x");
-
           tagWrapper.appendChild(tag);
           tagWrapper.appendChild(closeTag);
           tagContainer.appendChild(tagWrapper);
 
-          // 4) lancer un tri avec l'option choisie
-          // console.log(optionContainer);
-
-          // ici on appelle mainSearch(currentRecipesList, searchString)
+          // 3) lancement d'un tri avec le tag choisi
 
           console.log(
-            "avant tri par tags (this.currentRecipesList)\n",
+            "liste de recettes avant tri par tags (this.currentRecipesList)\n",
             this.currentRecipesList
           );
 
+          // utilisation de la method mainSearch sur la liste de recette en cours avec la liste de tags et actualisation de la liste de recette
           this.currentRecipesList = this.mainSearch(
             this.currentRecipesList,
             this.selectedTags
           );
 
           console.log(
-            "après tri par tags (this.currentRecipesList)\n",
+            "liste de recettes après tri par tags (this.currentRecipesList)\n",
             this.currentRecipesList
           );
 
+          // utilisation de la method showRecipes pour afficher les recettes
           this.showRecipes(this.currentRecipesList);
-          // TODO la methode suivante vient effacer la selection déja faite
+          // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
           this.fillFiltersLists(this.currentRecipesList);
+          // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
           this.optionSelection();
 
-          // ajouter une variable Tag à la methode qui filtre les recettes ?
+          // 4) suppression de la / des option(s)séléctionnées de la liste des tags
+
+          // a) lister les tags à masquer
+          // liste des tags séléctionnés
+          const tagsToHide = $wrapper.querySelectorAll(".select-wrapper");
+
+          // b) masquer les tags de la liste tagsToHide
+          // itération sur les tags
+          tagsToHide.forEach((tag) => {
+            // string du tag à masquer
+            const tagName = tag.querySelector("p").innerText;
+
+            // liste des tags disponibles à vérifier
+            const tagToCheck = $wrapper.parentElement.querySelectorAll(
+              ".select-option:not(.selected-option)"
+            );
+
+            tagToCheck.forEach((tag) => {
+              // si le nom du tag correspond au tag à masquer
+              if (tagName == tag.innerText) {
+                // appliquer la classe hide pour masquer le tag
+                tag.classList.add("hide");
+              }
+            });
+          });
 
           // 5) gérer la supression de l'option
 
-          //nodeList des tags
+          //nodeList des tags haut
+          const tagCardList2 = document.querySelectorAll(".select-wrapper i");
+
+          // au click sur chaque tag de la liste jouer la method deleteTag
+          tagCardList2.forEach((tag) => {
+            tag.addEventListener("click", (e) => {
+              this.deleteTag(e);
+            });
+          });
+
+          //nodeList des tags bas
           const tagCardList = document.querySelectorAll(".tag-card i");
 
-          // au click sur la croix d'un tag
+          // au click sur chaque tag de la liste jouer la method deleteTag
           tagCardList.forEach((tag) => {
             tag.addEventListener("click", (e) => {
-              // écouteur d'event sur les tags
-              const tagContainer = e.target.parentElement;
-              const tagName = tagContainer.querySelector("p").innerText;
-
-              // console.log("SUPPRESSION DU TAG :\n", tagName);
-
-              // 1) supprimer le tag de la list de tag selectedTags
-              // console.log(
-              //   "liste de tags avant suppression du tag\n",
-              //   this.selectedTags
-              // );
-
-              // supprime le tag de la variable
-              this.selectedTags = this.selectedTags.replace(tagName, "");
-
-              // console.log(
-              //   "liste de tags après suppression du tag\n",
-              //   this.selectedTags
-              // );
-
-              // console.log(
-              //   "recettes avant tri par tags \n",
-              //   this.currentRecipesList
-              // );
-
-              // console.log("this.selectedTags\n", this.selectedTags);
-              // console.log(
-              //   "this.selectedTags.length\n",
-              //   this.selectedTags.length
-              // );
-              // console.log(
-              //   "this.selectedTags.replaceAll(\\s, ).length\n",
-              //   this.selectedTags.replace(/\s/g, "").length
-              // );
-
-              // comportement suivant le nombre de tags
-              if (this.selectedTags.replace(/\s/g, "").length > 1) {
-                // présence de tags après suppression
-                console.log("présence de tags sélectionnés");
-                this.currentRecipesList = this.mainSearch(
-                  this.$hardCodedRecipesData,
-                  this.selectedTags
-                );
-
-                this.showRecipes(this.currentRecipesList);
-                this.fillFiltersLists(this.currentRecipesList);
-                this.optionSelection();
-              } else {
-                // absence de tags après suppression
-                console.log("plus de tag selectionnés");
-                this.currentRecipesList = this.$hardCodedRecipesData;
-
-                this.launchStringSearch(this.searchString);
-              }
-
-              console.log(
-                "recettes après tri par tags \n",
-                this.currentRecipesList
-              );
-
-              // 2) supprimer le tag visuellement
-
-              tagContainer.remove();
+              this.deleteTag(e);
             });
           });
         });
       });
     });
   }
+
+  // METHOD POUR LA SUPPRESSION D'UN TAG SELECTIONNE [appliqué via la method optionSelection()]
+  deleteTag(e) {
+    // container du tag clické
+    const tagContainer = e.target.parentElement;
+    // string du tag clické
+    const tagName = tagContainer.querySelector("p").innerText;
+
+    // supprime le tag de la liste de tags
+    this.selectedTags = this.selectedTags.replace(tagName, "");
+
+    // comportement suivant le nombre de tags
+
+    if (
+      // CAS 1 : s'il reste des tags après suppression du tag à supprimer
+      this.selectedTags.replace(/\s/g, "").length > 1
+    ) {
+      // utilisation de la method mainSearch sur la liste de recette en cours avec la liste de tags préalablement actualisée et actualisation de la liste de recette
+      this.currentRecipesList = this.mainSearch(
+        this.$hardCodedRecipesData,
+        this.selectedTags
+      );
+      // utilisation de la method showRecipes pour afficher les recettes
+      this.showRecipes(this.currentRecipesList);
+      // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
+      this.fillFiltersLists(this.currentRecipesList);
+      // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
+      this.optionSelection();
+    }
+    // CAS 2 : absence de tags après suppression du tag à supprimer
+    else {
+      // reset de la liste de recette en cours
+      this.currentRecipesList = this.$hardCodedRecipesData;
+      // utilisation de la method launchStringSearch pour lancer une recherche en fonction du contenu de la barre de recherche
+      this.launchStringSearch(this.searchString);
+    }
+
+    console.log(
+      "liste de recettes après supression d'un tag (this.currentRecipesList) \n",
+      this.currentRecipesList
+    );
+
+    // suppression visuelle du tag supprimé
+
+    // selection des zone de tags haut
+    const tagTopContainer = document.querySelectorAll(".selected-container");
+    // itération sur les zones de tags haut
+    tagTopContainer.forEach((container) => {
+      // selection des tags séléctionés
+      const topP = container.querySelectorAll("p");
+      // itération sur les tags séléctionés
+      topP.forEach((p) => {
+        // vérification de la correspondance avec le tag clické (à supprimer)
+        if (p.innerText == tagName) {
+          // suppression du container du tag
+          p.parentElement.remove();
+        }
+      });
+    });
+
+    // selection de la zone de tag bas
+    const tagBottomContainer = document.querySelector(".tag-container");
+    // selection des tags séléctionés
+    const bottomP = tagBottomContainer.querySelectorAll("p");
+    bottomP.forEach((p) => {
+      // vérification de la correspondance avec le tag clické (à supprimer)
+      if (p.innerText == tagName) {
+        // suppression du container du tag
+        p.parentElement.remove();
+      }
+    });
+  }
 }
-
-// matchfinder(searchValue, list) {
-//   // if searchValue
-
-//   // globalList.includes(searchValue.toLowerCase)
-
-// }
 
 const app = new App();
 app.main();

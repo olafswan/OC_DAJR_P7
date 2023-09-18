@@ -6,10 +6,15 @@ class FilterList {
   }
 
   filterFiller(listId, listName) {
+    // console.log("modification de la liste de tags", listName);
+
+    // cible la bonne liste de tags via la variable listName
     const filterContainer = document.querySelector(`#${listName}`);
+    // cible le container où injecter les tags créés
     const $wrapper = filterContainer.querySelector(".select-options-container");
 
-    $wrapper.innerHTML = `<div class="selected-container"></div>`;
+    // TODO supprimer la ligne suivant entraine des bugs
+    $wrapper.innerHTML = ``;
 
     listId.forEach((item) => {
       const option = document.createElement("p");
