@@ -1873,7 +1873,6 @@ class App {
         appliance: "Four",
         ustensils: ["rouleau à patisserie", "fouet"],
       },
-      // END
     ];
   }
 
@@ -1892,406 +1891,85 @@ class App {
     // const Recipes = recipesData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
 
+    // définit la liste de recette en cours
     this.currentRecipesList = this.$hardCodedRecipesData;
 
-    console.log("this.currentRecipesList\n", this.currentRecipesList);
-
-    // affichage des recettes
+    // utilisation de la method showRecipes pour afficher les recettes
     this.showRecipes(this.currentRecipesList);
 
-    // console.log(
-    //   "🚀 \n this.$hardCodedRecipesData \n tableau des recettes :\n",
-    //   this.$hardCodedRecipesData
-    // );
-
-    // affichage des filtres
+    // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
     this.fillFiltersLists(this.currentRecipesList);
 
-    // console.log(
-    //   "🚀 \n searchLists \n tableau des ingrédients, des appareils et des ustensiles :\n",
-    //   searchLists
-    // );
-
-    // observation de la barre de recherche et detection de plus de 2 caractères
-    // affichage de l'ensemble des recettes
+    // ciblage de la barre de recherche
     const searchBar = document.querySelector("#search");
 
+    // observation de la barre de recherche et detection de plus de 3 caractères
     searchBar.addEventListener("input", () => {
+      // récupération de la valeur dans la barre de recherche
       this.searchString = searchBar.value;
-      // console.log("-- new input --");
 
-      // methode pour le tri par barre de recherche
+      // method gérant le tri par barre de recherche
       this.launchStringSearch(this.searchString);
-
-      // if (
-      //   // cas où la search bar est vide ou contient moins de 3 caractères
-      //   // => affichage de l'ensemble des recettes
-      //   typeof searchBar.value === "undefined" ||
-      //   searchBar.value.length < 3
-      // ) {
-      //   // console.log("CAS 1 : UNDEFINED OU < DE 3 LETTRES");
-      //   this.showRecipes(this.currentRecipesList);
-      // } else if (
-      //   // cas où la search bar contient plus de 2 caractères
-      //   // => lancement d'une recherche
-      //   !(typeof searchBar.value === "undefined") &&
-      //   searchBar.value.length > 2
-      // ) {
-      //   // console.log("\n\n------\n🚀 search about to launch 🚀\n------\n\n");
-      //   // remise à zéro des resultats
-      //   // filteredRecipes = [];
-
-      //   // console.log(
-      //   //   "liste des recettes dans la variable `$hardCodedRecipesData`",
-      //   //   this.$hardCodedRecipesData
-      //   // );
-
-      //   // lancement de la recherche
-      //   filteredRecipes = this.mainSearch(
-      //     this.currentRecipesList,
-      //     searchBar.value.toLowerCase()
-      //   );
-      //   // console.log(
-      //   //   "\n\n------\n------\n📝 \n file: App.js:1903 \n main \n filterdRecipes\n------\n------\n\n",
-      //   //   filteredRecipes
-      //   // );
-
-      //   if (filteredRecipes.length > 0) {
-      //     // cas où des résultats sont trouvés
-      //     // => affichage des résultats
-      //     // console.log("CAS 2 : CORRESPONDANCE TROUVEE");
-      //     this.showRecipes(filteredRecipes);
-      //     this.fillFiltersLists(filteredRecipes);
-      //     this.optionSelection();
-      //   } else {
-      //     // cas où aucun résultat n'est trouvé
-      //     // => affichage du message d'erreur
-      //     // console.log("CAS 3 : PAS DE CORRESPONDANCE TROUVEE");
-      //     setTimeout(() => {
-      //       // console.log("CAS 3.1 : PAS DE CORRESPONDANCE TROUVEE");
-
-      //       if (filteredRecipes.length === 0 && searchBar.value.length > 2) {
-      //         this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchBar.value}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
-      //         document.querySelector(".results-number").innerHTML = "";
-      //       }
-      //     }, 1000);
-      //   }
-      // }
     });
 
-    // TRI DES OPTIONS DANS LA LISTE
-
-    // ciblage des containers des search bars
-    const ingredientsSearch = document.querySelector("#ingredientsSearch");
-    const appliancesSearch = document.querySelector("#appliancesSearch");
-    const ustensilsSearch = document.querySelector("#ustensilsSearch");
-    const searchOptions = [
-      ingredientsSearch,
-      appliancesSearch,
-      ustensilsSearch,
-    ];
-
-    searchOptions.forEach((option) => {
-      option.addEventListener("input", () => {
-        // console.log(
-        //   "-- \nnew input in option search\n--",
-        //   option,
-        //   option.value
-        // );
-
-        this.optionTrimmer(option, this.normalize(option.value));
-        // utiliser l'option selectionnée pour trim la list
-      });
-    });
-
-    // SELECTIONS D'OPTIONS DANS LA LISTE
+    // utilisation de la method optionSelection pour rendre possible la séléction des tags
     this.optionSelection();
-
-    // // ciblage des containers des options
-    // const ingredientsOptionsContainer = document.querySelector(
-    //   "#ingredientsOptions"
-    // );
-    // const appliancesOptionsContainer =
-    //   document.querySelector("#appliancesOptions");
-    // const ustensilsOptionsContainer =
-    //   document.querySelector("#ustensilsOptions");
-    // const filterOptionsContainer = [
-    //   ingredientsOptionsContainer,
-    //   appliancesOptionsContainer,
-    //   ustensilsOptionsContainer,
-    // ];
-
-    // // // ciblage des options dans les containers
-    // // const ingredientsOptions =
-    // //   ingredientsOptionsContainer.querySelectorAll(".select-options");
-    // // const appliancesOptions =
-    // //   appliancesOptionsContainer.querySelectorAll(".select-options");
-    // // const ustensilsOptions =
-    // //   ustensilsOptionsContainer.querySelectorAll(".select-options");
-    // // const filterOptions = [
-    // //   ingredientsOptions,
-    // //   appliancesOptions,
-    // //   ustensilsOptions,
-    // // ];
-
-    // // ciblage des
-
-    // filterOptionsContainer.forEach((optionContainer) => {
-    //   //cible toutes les options
-    //   const filterOptions = optionContainer.querySelectorAll(".select-option");
-
-    //   filterOptions.forEach((option) => {
-    //     option.addEventListener("click", (e) => {
-    //       const selectOptions = e.target;
-    //       const $wrapper = optionContainer.querySelector(".selected-container");
-
-    //       console.log(
-    //         "🚀 \n file: App.js:2027 \n option.addEventListener \n wrapper\n",
-    //         $wrapper
-    //       );
-
-    //       // 1) afficher la yellow card de l'option choisie en tête de liste
-    //       // // création  d'un container div
-    //       // const selectedContainer = document.createElement("div");
-    //       // // attribution de la classe CSS à l'element
-    //       // selectedContainer.classList.add("selected-container");
-    //       // créartion du container du tag
-    //       const selectedWrapper = document.createElement("div");
-    //       selectedWrapper.classList.add("select-wrapper");
-
-    //       // création d'un element HTML p
-    //       const selectedOption = document.createElement("p");
-    //       // ajout du texte
-    //       selectedOption.innerText = selectOptions.innerText;
-    //       // attribution de la classe CSS à l'element
-    //       selectedOption.classList.add("select-option", "selected-option");
-    //       // // ajout de l'element à son container
-
-    //       const close = document.createElement("i");
-    //       close.classList.add("fa-solid", "fa-x");
-
-    //       console.log(
-    //         "🚀 \n file: App.js:2051 \n option.addEventListener \n close\n",
-    //         close
-    //       );
-
-    //       selectedWrapper.appendChild(selectedOption);
-    //       selectedWrapper.appendChild(close);
-    //       // TODO pourquoi l'element close n'est pas injecté ???
-    //       $wrapper.appendChild(selectedWrapper);
-
-    //       // tagWrapper.appendChild(close);
-
-    //       // selectedContainer.appendChild(selectedOption);
-    //       // // ajout du container à son emplacement
-    //       // optionContainer.prepend(selectedContainer);
-    //       // $wrapper.appendChild(selectedOption);
-
-    //       // 2) supprimer l'option choisie de la liste
-    //       selectOptions.classList.add("hide");
-
-    //       // 3) afficher la yellow card de l'option choisie sous la div de class filters
-    //       const tagContainer = document.querySelector(".tag-container");
-
-    //       const tagWrapper = document.createElement("div");
-    //       tagWrapper.classList.add("tag-card");
-    //       const tag = document.createElement("p");
-    //       tag.classList.add("tag");
-    //       tag.innerText = selectOptions.innerText;
-
-    //       const closeTag = document.createElement("i");
-    //       closeTag.classList.add("fa-solid", "fa-x");
-
-    //       tagWrapper.appendChild(tag);
-    //       tagWrapper.appendChild(closeTag);
-    //       tagContainer.appendChild(tagWrapper);
-
-    //       // 4) lancer un tri avec l'option choisie
-    //       console.log(optionContainer);
-
-    //       // 5) gérer la supression de l'option
-    //     });
-    //   });
-    // });
-    // END SELECTIONS D'OPTIONS DANS LA LISTE
-
-    // document
-    // .querySelector("#search")
-    // .addEventListener("input", () => this.getSearchValue());
-
-    // if (!(typeof searchString === "undefined")) {
-    //   this.mainSearch(this.$hardCodedRecipesData, searchString, filterdRecipes);
-    // }
-
-    // this.$hardCodedRecipesData.forEach((recipe) => {
-    //   let ingredientsString = "";
-
-    //   recipe.ingredients.forEach((ingredient) => {
-    //     ingredientsString.concat(" ", ingredient.ingredient);
-    //   });
-
-    //   console.log(
-    //     "🚀 \n file: App.js:1916 \n this.$hardCodedRecipesData.forEach \n ingredientsString\n",
-    //     ingredientsString
-    //   );
-
-    //   if (
-    //     searchString.includes(
-    //       recipe.name || recipe.description || ingredientsString
-    //     )
-    //   ) {
-    //     console.log("match!!!");
-    //   }
-
-    //   filterdRecipes.push(recipe);
-    // });
-
-    // console.log(
-    //   "🚀 \n file: App.js:1928 \n this.$hardCodedRecipesData.forEach \n filterdRecipes\n",
-    //   filterdRecipes
-    // );
-
-    // if (searchLists[0].includes())
-
-    // on a searchLists et searchStting
-
-    // if searchString
-    //   globalList.includes(searchValue.toLowerCase)
-
-    // UPDATE code suivant délégué à la method showRecipes()...
-    // const Recipes = this.$hardCodedRecipesData.map(
-    //   (recipe) => new Recipe(recipe)
-    // );
-    // // map de chaque recette pour appliquer la classe Recipe
-
-    // Recipes.forEach((recipe) => {
-    //   const Template = new RecipeCard(recipe);
-    //   // pour chaque recette ajouter la classe RecipeCard
-    //   this.$recipesWrapper.appendChild(Template.createRecipeCard());
-    //   // créer chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
-    // });
-
-    // ----------------------------------------
-
-    // // Création des 3 listes
-    // const EnhancedRecipes = new RecipesData(this.$hardCodedRecipesData);
-    // console.log("🥒 🥒 🥒 \n ", EnhancedRecipes.getIngredientsList());
-    // console.log("🎛 🎛 🎛 \n ", EnhancedRecipes.getAppliancesList());
-    // console.log("🥣 🥣 🥣 \n ", EnhancedRecipes.getUstensilsList());
-
-    // -----------------------------------------
-    // création des listes ingrédients / appareils / ustensiles
-    // -----------------------------------------
-    // let ingredientsList = [];
-    // let appliancesList = [];
-    // let ustensilsList = [];
-
-    //   Recipes.forEach((recipe) => {
-    //     // console.log(
-    //     //   "🧑‍🍳 \n file: App.js:1900 \n Recipes.forEach \n recipe\n",
-    //     //   recipe
-    //     // );
-
-    //     // récupère l'array listant les ingrédients
-    //     const ingredients = recipe.ingredients;
-    //     // récupère l'array ou le string du/des appareills
-    //     const appliances = recipe.appliance;
-
-    //     // récupère l'array ou le string du/des ustensiles
-    //     const ustensils = recipe.ustensils;
-
-    //     // itération sur l'ensemble des ingredients
-    //     ingredients.forEach((recipeIngredient) => {
-    //       if (!ingredientsList.includes(recipeIngredient.ingredient)) {
-    //         ingredientsList.push(recipeIngredient.ingredient);
-    //       }
-    //     });
-
-    //     function searchItem(itemType, itemList) {
-    //       if (typeof itemType === "string") {
-    //         if (!itemList.includes(itemType)) {
-    //           itemList.push(itemType);
-    //         }
-    //       } else if (typeof itemType === "object") {
-    //         itemType.forEach((item) => {
-    //           if (!itemList.includes(item)) {
-    //             itemList.push(item);
-    //           }
-    //         });
-    //       }
-    //     }
-
-    //     searchItem(appliances, appliancesList);
-    //     searchItem(ustensils, ustensilsList);
-    //   });
-
-    //   // console.log(
-    //   //   "🥒 \n file: App.js:1899 \n main \n ingredientsList\n",
-    //   //   ingredientsList
-    //   // );
-    //   // console.log(
-    //   //   "🎛 \n file: App.js:1913 \n Recipes.forEach \n appliancesList\n",
-    //   //   appliancesList
-    //   // );
-    //   // console.log(
-    //   //   "🥣 \n file: App.js:1918 \n Recipes.forEach \n ustensilsList\n",
-    //   //   ustensilsList
-    //   // );
   }
 
+  // METHOD DE RECHERCHE VIA LA SEARCH BAR
   launchStringSearch(searchSentence) {
-    // si pas de tag remettre par défaut la liste de recette
+    // affiche les sélécteurs de tags s'ils ont été masqués
+    const mainHeader = document.querySelector(".main-header");
+    mainHeader.classList.remove("hide");
 
-    // si aucun tag n'est séléctionné
+    // prévention des vulérabilités XSS
+    if (!(searchSentence === undefined)) {
+      searchSentence = this.escape(searchSentence);
+    }
+
+    // si pas de tag séléctionné remettre par défaut la liste de recette
     if (this.selectedTags.replace(/\s/g, "").length < 1) {
       // reset de la liste de recette en cours
       this.currentRecipesList = this.$hardCodedRecipesData;
     }
 
     if (
-      // cas où la search bar est vide ou contient moins de 3 caractères et présence de tags
+      // CAS N°1 : la search bar est vide ou contient moins de 3 caractères ou contient uniquement des caractères spéciaux
       // => affichage de l'ensemble des recettes
       typeof searchSentence === "undefined" ||
-      searchSentence.length < 3
+      searchSentence.length < 3 ||
+      this.stringToArray(searchSentence) == null
     ) {
-      // console.log("CAS 1 : UNDEFINED OU < DE 3 LETTRES");
+      // utilisation de la method showRecipes pour afficher les recettes
       this.showRecipes(this.currentRecipesList);
+      // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
       this.fillFiltersLists(this.currentRecipesList);
+      // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
       this.optionSelection();
     } else if (
-      // cas où la search bar contient plus de 2 caractères
+      // CAS N°2 : la search bar contient plus de 2 caractères
       // => lancement d'une recherche
       !(typeof searchSentence === "undefined") &&
       searchSentence.length > 2
     ) {
-      // console.log("\n\n------\n🚀 search about to launch 🚀\n------\n\n");
-      // remise à zéro des resultats
-      // filteredRecipes = [];
-
-      // console.log(
-      //   "liste des recettes dans la variable `$hardCodedRecipesData`",
-      //   this.$hardCodedRecipesData
-      // );
-
-      // lancement de la recherche
+      // lancement de la recherche via la method mainSearch
       const filteredRecipes = this.mainSearch(
         this.currentRecipesList,
-        searchSentence.toLowerCase()
+        searchSentence
       );
-      // console.log(
-      //   "\n\n------\n------\n📝 \n file: App.js:1903 \n main \n filterdRecipes\n------\n------\n\n",
-      //   filteredRecipes
-      // );
 
       if (filteredRecipes.length > 0) {
         // cas où des résultats sont trouvés
         // => affichage des résultats
-        // console.log("CAS 2 : CORRESPONDANCE TROUVEE");
+        // utilisation de la method showRecipes pour afficher les recettes
         this.showRecipes(filteredRecipes);
+        // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
         this.fillFiltersLists(filteredRecipes);
+        // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
         this.optionSelection();
         this.currentRecipesList = filteredRecipes;
       } else {
+        // TODO décider sur le timeout ou pas
         // // V1 avec timeout
         // // cas où aucun résultat n'est trouvé
         // // => affichage du message d'erreur
@@ -2313,84 +1991,64 @@ class App {
         // console.log("CAS 3.1 : PAS DE CORRESPONDANCE TROUVEE");
 
         if (filteredRecipes.length === 0 && searchSentence.length > 2) {
+          // affiche le message d'erreur
           this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchSentence}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
+          // efface le compteur de recettes
           document.querySelector(".results-number").innerHTML = "";
+          // masque les sélécteur de tags
+          mainHeader.classList.add("hide");
         }
       }
     }
   }
 
+  // METHOD POUR AFFICHER LES RECETTES
   showRecipes(recipeData) {
-    // console.log(
-    //   "🚀 \n recipeData.length \n nombre de recettes :\n",
-    //   recipeData.length
-    // );
-
     // vide le champs des résultats
     this.$recipesWrapper.innerHTML = "";
 
-    const Recipes = recipeData.map((recipe) => new Recipe(recipe));
     // map de chaque recette pour appliquer la classe Recipe
+    const Recipes = recipeData.map((recipe) => new Recipe(recipe));
 
+    // itération sur chaque recette
     Recipes.forEach((recipe) => {
+      // pour chaque recette ajout de la classe RecipeCard
       const Template = new RecipeCard(recipe);
-      // pour chaque recette ajouter la classe RecipeCard
+      // création de chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
       this.$recipesWrapper.appendChild(Template.createRecipeCard());
-      // créer chaque card via la method createRecipeCard et l'ajouter au parent $recipesWrapper
     });
 
-    //afficher le nombre de recettes
+    //affichage du nombre de recettes
     const resultsNumberWrapper = document.querySelector(".results-number");
 
-    if (recipeData.length === 1) {
+    if (
+      // si 1 seule recette, singulier
+      recipeData.length === 1
+    ) {
       resultsNumberWrapper.innerHTML = `1 recette`;
-    } else if (recipeData.length > 1) {
+    } else if (
+      // si plusieur recettes, pluriel
+      recipeData.length > 1
+    ) {
       resultsNumberWrapper.innerHTML = `${recipeData.length} recettes`;
     }
   }
 
+  // METHOD POUR AFFICHER LES TAGS CORRESPONDANT A UNE LISTE DE RECETTES
   fillFiltersLists(recipeData) {
+    // applique la classe RecipesData à la liste de recette
     const EnhancedRecipes = new RecipesData(recipeData);
-    // console.log("------ \n fillFiltersLists function called!!! ------\n");
-    // console.log(
-    //   "🥒 🥒 🥒 \n liste des ingrédients :\n",
-    //   EnhancedRecipes.getIngredientsList()
-    // );
-    // console.log(
-    //   "🎛 🎛 🎛 \n liste des appareils :\n ",
-    //   EnhancedRecipes.getAppliancesList()
-    // );
-    // console.log(
-    //   "🥣 🥣 🥣 \n liste des ustensiles :\n ",
-    //   EnhancedRecipes.getUstensilsList()
-    // );
 
+    // création des 3 listes de tags et ajout de la classe ListBuilder
     const ListBuilder = new FilterList(
       EnhancedRecipes.getIngredientsList(),
       EnhancedRecipes.getAppliancesList(),
       EnhancedRecipes.getUstensilsList()
     );
+
+    // Création des des tags grace à la method fillFiltersLists
     ListBuilder.fillFiltersLists();
-    return [
-      EnhancedRecipes.getIngredientsList(),
-      EnhancedRecipes.getAppliancesList(),
-      EnhancedRecipes.getUstensilsList(),
-    ];
   }
-
-  // getSearchValue() {
-  //   const searchString = document.querySelector("#search").value;
-
-  //   if (searchString.length > 2) {
-  //     console.log(
-  //       "🚀 \n file: App.js:2004 \n getSearchValue \n searchString\n",
-  //       searchString
-  //     );
-
-  //     return searchString;
-
-  //   }
-  // }
 
   // METHOD DE TRI DES RECETTES
   mainSearch(recipesArray, searchString) {
@@ -2399,8 +2057,6 @@ class App {
 
     // itéartion sur la liste des recettes
     recipesArray.forEach((recipe) => {
-      console.log(recipe.name, "\nid recette:", recipe.id);
-
       // variable pour stocker la liste des ingredients
       let ingredientsString = "";
 
@@ -2411,28 +2067,12 @@ class App {
       });
 
       // variable pour stocker la liste des appareils
-      const appliancesArray = this.stringToArray(
-        this.normalize(recipe.appliance)
-      );
+      const appliancesArray = this.stringToArray(recipe.appliance);
       // variable pour stocker la liste des ustensiles
-      let ustensilsArray = this.stringToArray(
-        this.normalize(recipe.ustensils.join(" "))
-      );
-
-      console.log(
-        "🚀 \n file: App.js:2420 \n recipesArray.forEach \n ustensilsArray\n",
-        ustensilsArray
-      );
+      const ustensilsArray = this.stringToArray(recipe.ustensils.join(" "));
 
       // converti le string de la recherche en array
       const searchArray = this.stringToArray(searchString);
-
-      console.log(
-        "1) 🚀 \n searchArray\n tableau des mots recherchés\n",
-
-        "\n",
-        searchArray
-      );
 
       // création de l'array listant les mots du titre de la recette
       const recipeNameArray = this.stringToArray(recipe.name);
@@ -2446,14 +2086,7 @@ class App {
         recipeDescriptionArray,
         recipeIngredientsArray,
         appliancesArray,
-        recipe.ustensils
-      );
-
-      console.log(
-        "2) 🚀 \n recipeArray\n tableau des mots de la recette\n",
-        recipe.name,
-        "\n",
-        recipeArray
+        ustensilsArray
       );
 
       // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette
@@ -2462,21 +2095,8 @@ class App {
           // si l'un des mots est absent, la recette doit être supprimée du tableau des résultats
           !recipeArray.includes(searchWord)
         ) {
-          console.log(
-            "\nle mot ",
-            searchWord,
-            " est absent de la recette ",
-            recipe.name,
-            "\n👎👎👎 match NOT detected!!!\n------\n"
-          );
-
           // recherche de l'index de la recette à supprimer
           const index = resultArray.indexOf(recipe);
-
-          // console.log(
-          //   "🚀 \n file: App.js:2369 \n searchArray.forEach \n index\n",
-          //   index
-          // );
 
           // supression de la recette via son index
           if (index != -1) {
@@ -2484,48 +2104,14 @@ class App {
           }
         }
         // si le mot est présent la recette doit être conservée dans le tabelau des résultats
-        else {
-          console.log(
-            "\nle mot ",
-            searchWord,
-            " est présent dans la recette ",
-            recipe.name,
-            "\n👍👍👍 match detected!!!\n------\n"
-          );
-        }
-
-        // console.log(
-        //   "🚀 \n état intermediaire de la liste de résultats après vérification du mot\n",
-        //   searchWord,
-        //   "\ndans la recette\n ",
-        //   recipe.name,
-        //   "\n",
-        //   resultArray
-        // );
       });
-
-      // console.log("après spread operator", resultArray);
-      // console.log(resultArray.length);
-
-      // // let resultArray = recipesArray;
-
-      // console.log(
-      //   "liste des recettes dans la variable `resultArray`",
-      //   resultArray,
-      //   "`resultArray.length`",
-      //   resultArray.length
-      // );
     });
 
-    // console.log("🚀 \n resultArray après fin du tri \n", resultArray);
-
-    // retourne un tableau des recettes filtrées
-    // this.currentRecipesList = resultArray;
+    // retourne un tableau des
     return resultArray;
   }
 
-  // BEFORE MODIFICATION OF SEARCH
-
+  // METHOD POUR LA SUPPRESSION DES MAJUSCULES ET DES CARACTERES ACCENTUES
   normalize(string) {
     // supression des caractères accentués
     string = string.normalize("NFD").replace(/\p{Diacritic}/gu, "");
@@ -2533,6 +2119,7 @@ class App {
     return string.toLowerCase();
   }
 
+  // METHOD POUR TRANSFORMER UN STRING EN ARRAY
   stringToArray(string) {
     // supression des caractères accentués
     string = this.normalize(string);
@@ -2541,22 +2128,14 @@ class App {
     return string.match(/\b([A-zÀ-ú]{3,})\b/g);
   }
 
-  optionTrimmer(option, value) {
-    const selectOptionsContainer = option.parentNode.parentNode.querySelector(
-      ".select-options-container"
-    );
-
-    const selectOptions =
-      selectOptionsContainer.querySelectorAll(".select-option");
-
-    selectOptions.forEach((option) => {
-      option.style.display = "block";
-      if (!this.normalize(option.innerText).includes(value)) {
-        option.style.display = "none";
-      }
-    });
-
-    //parentNode
+  // METHOD POUR LIMITER LES VUNLERABILITES XSS
+  escape(string) {
+    return string
+      .replace(/&/g, "")
+      .replace(/</g, "")
+      .replace(/>/g, "")
+      .replace(/"/g, "")
+      .replace(/'/g, "&#39;");
   }
 
   // METHOD POUR LA GESTION DES INTERACTIONS SUR LES TAGS
