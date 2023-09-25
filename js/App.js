@@ -1899,6 +1899,29 @@ class App {
 
     // utilisation de la method optionSelection pour rendre possible la séléction des tags
     this.optionSelection();
+
+    // FONCTION DE TRI DES TAGS
+
+    // ciblage des containers des search bars
+    const ingredientsSearch = document.querySelector("#ingredientsSearch");
+    const appliancesSearch = document.querySelector("#appliancesSearch");
+    const ustensilsSearch = document.querySelector("#ustensilsSearch");
+    const searchOptions = [
+      ingredientsSearch,
+      appliancesSearch,
+      ustensilsSearch,
+    ];
+    searchOptions.forEach((option) => {
+      option.addEventListener("input", () => {
+        // console.log(
+        //   "-- \nnew input in option search\n--",
+        //   option,
+        //   option.value
+        // );
+        this.optionTrimmer(option, this.normalize(option.value));
+        // utiliser l'option selectionnée pour trim la list
+      });
+    });
   }
 
   // METHOD DE RECHERCHE VIA LA SEARCH BAR
@@ -2312,6 +2335,25 @@ class App {
         p.parentElement.remove();
       }
     });
+  }
+
+  // METHOD POUR EFFECTUER LE TRI DES TAGS
+  optionTrimmer(option, value) {
+    const selectOptionsContainer = option.parentNode.parentNode.querySelector(
+      ".select-options-container"
+    );
+
+    const selectOptions =
+      selectOptionsContainer.querySelectorAll(".select-option");
+
+    selectOptions.forEach((option) => {
+      option.style.display = "block";
+      if (!this.normalize(option.innerText).includes(value)) {
+        option.style.display = "none";
+      }
+    });
+
+    //parentNode
   }
 }
 
