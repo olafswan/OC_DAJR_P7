@@ -2056,15 +2056,16 @@ class App {
     let resultArray = [...recipesArray];
 
     // itéartion sur la liste des recettes
-    recipesArray.forEach((recipe) => {
+    for (let i = 0; i < recipesArray.length; i++) {
+      const recipe = recipesArray[i];
       // variable pour stocker la liste des ingredients
       let ingredientsString = "";
 
       // itération sur chaque ingrédient pour créer la liste des ingredients séparées par un espace
-      recipe.ingredients.forEach((ingredient) => {
-        const thisIngredient = ingredient.ingredient.toLowerCase();
+      for (let j = 0; j < recipe.ingredients.length; j++) {
+        const thisIngredient = recipe.ingredients[j].ingredient.toLowerCase();
         ingredientsString = ingredientsString.concat(" ", thisIngredient);
-      });
+      }
 
       // variable pour stocker la liste des appareils
       const appliancesArray = this.stringToArray(recipe.appliance);
@@ -2090,7 +2091,8 @@ class App {
       );
 
       // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette
-      searchArray.forEach((searchWord) => {
+      for (let k = 0; k < searchArray.length; k++) {
+        const searchWord = searchArray[k];
         if (
           // si l'un des mots est absent, la recette doit être supprimée du tableau des résultats
           !recipeArray.includes(searchWord)
@@ -2104,8 +2106,8 @@ class App {
           }
         }
         // si le mot est présent la recette doit être conservée dans le tabelau des résultats
-      });
-    });
+      }
+    }
 
     // retourne un tableau des
     return resultArray;
