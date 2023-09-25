@@ -79,7 +79,7 @@ class RecipeCard {
 
     const recipeCard = `
     <div class="recipe-card-wrapper">
-    <img src="${this._recipe.image}" alt="${this._recipe.name}">
+    <img src=".${this._recipe.image}" alt="${this._recipe.name}">
     <div class="recipe-information">
     <h2>${this._recipe.name}</h2>
     <h3>Recette</h3>
