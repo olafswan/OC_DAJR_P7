@@ -7,7 +7,6 @@ const selectHeaders = document.querySelectorAll(".select-header");
 selectHeaders.forEach((header) => {
   header.addEventListener("click", () => {
     // Récupérer l'élément parent ".select-container" de l'élément ".select-header" cliqué
-    // console.log("click!!");
     const selectContainer = header.parentElement;
 
     // Récupérer l'élément ".select-search-container" enfant de l'élément parent
@@ -1876,21 +1875,7 @@ class App {
     ];
   }
 
-  // async main() {
   main() {
-    // console.log(this.$hardCodedRecipesData);
-    // const recipesData = await this.recipesApi.getRecipes();
-
-    // console.log(
-    //   "🚀 \n file: App.js:1875 \n //main \n recipesData\n",
-    //   recipesData
-    // );
-
-    // fetch des recettes
-
-    // const Recipes = recipesData.map((recipe) => new Recipe(recipe));
-    // map de chaque recette pour appliquer la classe Recipe
-
     // définit la liste de recette en cours
     this.currentRecipesList = this.$hardCodedRecipesData;
 
@@ -1967,29 +1952,11 @@ class App {
         this.fillFiltersLists(filteredRecipes);
         // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
         this.optionSelection();
+        // actualisation de la liste de recette en cours
         this.currentRecipesList = filteredRecipes;
       } else {
-        // TODO décider sur le timeout ou pas
-        // // V1 avec timeout
-        // // cas où aucun résultat n'est trouvé
-        // // => affichage du message d'erreur
-        // // console.log("CAS 3 : PAS DE CORRESPONDANCE TROUVEE");
-        // setTimeout(() => {
-        //   // console.log("CAS 3.1 : PAS DE CORRESPONDANCE TROUVEE");
-
-        //   if (filteredRecipes.length === 0 && searchSentence.length > 2) {
-        //     this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchSentence}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
-        //     document.querySelector(".results-number").innerHTML = "";
-        //   }
-        // }, 1000);
-
-        // V2 sans timeout
-        // cas où aucun résultat n'est trouvé
+        // cas où aucun résultat ou moins de 3 caractères
         // => affichage du message d'erreur
-        // console.log("CAS 3 : PAS DE CORRESPONDANCE TROUVEE");
-
-        // console.log("CAS 3.1 : PAS DE CORRESPONDANCE TROUVEE");
-
         if (filteredRecipes.length === 0 && searchSentence.length > 2) {
           // affiche le message d'erreur
           this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchSentence}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
@@ -2107,7 +2074,7 @@ class App {
       });
     });
 
-    // retourne un tableau des
+    // retourne un tableau des résultats
     return resultArray;
   }
 
@@ -2136,6 +2103,7 @@ class App {
       .replace(/>/g, "")
       .replace(/"/g, "")
       .replace(/'/g, "&#39;");
+    // remplace les "&", "<", ">", """, "'" par leur codes unicode
   }
 
   // METHOD POUR LA GESTION DES INTERACTIONS SUR LES TAGS
@@ -2214,20 +2182,10 @@ class App {
 
           // 3) lancement d'un tri avec le tag choisi
 
-          console.log(
-            "liste de recettes avant tri par tags (this.currentRecipesList)\n",
-            this.currentRecipesList
-          );
-
           // utilisation de la method mainSearch sur la liste de recette en cours avec la liste de tags et actualisation de la liste de recette
           this.currentRecipesList = this.mainSearch(
             this.currentRecipesList,
             this.selectedTags
-          );
-
-          console.log(
-            "liste de recettes après tri par tags (this.currentRecipesList)\n",
-            this.currentRecipesList
           );
 
           // utilisation de la method showRecipes pour afficher les recettes
@@ -2324,11 +2282,6 @@ class App {
       // utilisation de la method launchStringSearch pour lancer une recherche en fonction du contenu de la barre de recherche
       this.launchStringSearch(this.searchString);
     }
-
-    console.log(
-      "liste de recettes après supression d'un tag (this.currentRecipesList) \n",
-      this.currentRecipesList
-    );
 
     // suppression visuelle du tag supprimé
 
