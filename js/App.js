@@ -21,6 +21,8 @@ class App {
     // Boucle sur chaque élément ".select-header" pour ajouter un écouteur d'événement "click"
     selectHeaders.forEach((header) => {
       header.addEventListener("click", () => {
+        // OUVERTURE / FERMETURE DES MENUS
+
         // Récupérer l'élément parent ".select-container" de l'élément ".select-header" cliqué
         const selectContainer = header.parentElement;
 
@@ -43,7 +45,46 @@ class App {
         // down affiché menu fermé ˅
         down.classList.toggle("hide");
 
-        // TODO implémenter la fermeture des menus à la perte de focus
+        // FERMETURE DES MENUS AU CLICK HORS DU MENU
+
+        const body = document.querySelector("body");
+
+        function closeMenu(e) {
+          // element clické
+          const target = e.target;
+
+          console.log(
+            "🚀 \n file: App.js:56 \n App \n closeMenu \n e.target\n",
+            e.target
+          );
+
+          // click dans le container ou pas ?
+          const isInContainer =
+            selectContainer.contains(target) ||
+            target.classList.contains("select-option") ||
+            target.classList.contains("tagX");
+          // si clikk hors du container
+
+          if (!isInContainer) {
+            // suppression de  la classe ".show" de l'élément ".select-search-container" le corps du menu
+            selectSearchContainer.classList.remove("show");
+            // ajout la classe ".close" de l'élément ".select-container" l'entête du menu
+            selectContainer.classList.add("close");
+            // up affiché menu ouvert ˄
+            up.classList.add("hide");
+            // down affiché menu fermé ˅
+            down.classList.remove("hide");
+          }
+        }
+
+        // verifie si le menu est ouvert :
+        if (!selectContainer.classList.contains("close")) {
+          body.addEventListener("click", (e) => closeMenu(e));
+        }
+        if (selectContainer.classList.contains("close")) {
+          removeEventListener("click", body);
+        }
+        // -------------------
       });
     });
 
@@ -69,19 +110,14 @@ class App {
       // ajout du bouton d'effacement si le champ n'est pas vide
       if (searchBar.value != "") {
         // appelle la method pour permettre l'effacement
-        this.deleteInput(deleteButton);
+        this.deleteSearchBar(deleteButton);
       } else {
         // masque le bouton d'effacement si le champ est vide
-        console.log("la barre est vide");
         deleteButton.classList.add("hide");
       }
-
       // lancement d'une recherche
       this.globalSearch();
     });
-
-    // // utilisation de la method optionSelection pour rendre possible la sélection des tags
-    // this.optionSelection();
 
     // FONCTION DE RECHERCHE DE TAGS
 
@@ -106,36 +142,34 @@ class App {
         // ajout du bouton d'effacement si le champ n'est pas vide
         if (tagSearchBar.value != "") {
           // appelle la method pour permettre l'effacement
-          this.deleteInput(deleteButton, tagSearchBar);
+          this.deleteSearchBar(deleteButton, tagSearchBar);
         } else {
           // masque le bouton d'effacement si le champ est vide
           deleteButton.classList.add("hide");
         }
-
         // filtre la liste de tag en fonction de l'input
-        this.optionTrimmer(tagSearchBar, this.normalize(tagSearchBar.value));
+        this.tagTrimmer(tagSearchBar, this.normalize(tagSearchBar.value));
       });
       // à la perte de focus vider le champ et masquer le bouton d'effacement
       tagSearchBar.addEventListener("blur", () => {
-        console.log("perte de focus, effacement de la recherche");
+        // vide le champs
         tagSearchBar.value = "";
+        // masque le bouton d'effacement
         deleteButton.classList.add("hide");
-        this.optionTrimmer(tagSearchBar, "");
+        // reninitialise la liste de tags
+        this.tagTrimmer(tagSearchBar, "");
       });
     });
   }
 
   // METHOD POUR INITIER UNE RECHERCHE
   globalSearch() {
-    console.log("--------------------");
     // 1 RÉCUPÉRER LE CONTENU DE LA SEARCH BAR
 
     // ciblage de la barre de recherche
     const searchBar = document.querySelector("#search");
-
     // récupération de la valeur dans la barre de recherche
     let searchString = searchBar.value;
-
     // prévention des vulérabilités XSS
     if (!(searchString === undefined)) {
       searchString = this.escape(searchString);
@@ -144,19 +178,14 @@ class App {
     // transforme le string en un array
     const searchArray = this.stringToArray(searchString);
 
-    console.log(
-      "🚀 \n file: App.js:120 \n CRITERE 1 \n searchArray\n",
-      searchArray
-    );
+    // console.log("🚀 \n CRITERE 1 \n searchArray\n", searchArray);
 
     // 2 RÉCUPÉRER LES TAGS SÉLÉCTIONNÉS
 
     // ciblage du container de tags sélectionnés
     const tagsContainer = document.querySelector(".tag-container");
-
     // ciblage des tags sélectionnés
     const tagsNodeList = tagsContainer.querySelectorAll(".tag");
-
     // création de la liste des tags sélectionnés
     let tagArray = [];
 
@@ -164,49 +193,14 @@ class App {
     tagsNodeList.forEach((tagElement) => {
       // supression des caractères accentués
       const tag = this.normalize(tagElement.innerText);
-
       // ajout des mots de plus de 3 caractères à la liste des tags
       tagArray = tagArray.concat(tag.match(/\b([A-zÀ-ú]{3,})\b/g));
     });
 
-    console.log("🚀 \n file: App.js:143 \n CRITERE 2 \n tagArray\n", tagArray);
+    // console.log("🚀 \n CRITERE 2 \n tagArray\n", tagArray);
 
     // EFFECTUER LA RECHERCHE AVEC LES CRITÈRES 1 ET 2
     const resultArray = this.trimRecipeList(searchArray, tagArray);
-
-    // en fonction des résultats
-
-    // console.log("variables CAS 1");
-
-    // console.log(
-    //   "🚀 \n la search bar est vide ? \n typeof searchString === undefined\n",
-    //   typeof searchString === "undefined"
-    // );
-    // console.log(
-    //   "🚀 \n la search bar contient moins de 3 caractères ? \n searchString.length < 3\n",
-    //   searchString.length < 3
-    // );
-    // console.log(
-    //   "🚀 \n pas de tags sélectionnés ?\n tagArray.length == 0\n",
-    //   tagArray.length == 0
-    // );
-
-    // console.log("variables CAS 2");
-
-    // console.log(
-    //   "🚀 \n la search bar n'est pas vide ? \n !(typeof searchString === undefined)\n",
-    //   !(typeof searchString === "undefined")
-    // );
-
-    // console.log(
-    //   "🚀 \n la search bar contient plus de 2 caractères ? \n searchString.length > 2\n",
-    //   searchString.length > 2
-    // );
-
-    // console.log(
-    //   "🚀 \n tags sélectionnés \n tagArray.length > 1 ?\n",
-    //   tagArray.length > 0
-    // );
 
     if (
       // CAS N°1 : la search bar est vide ou contient moins de 3 caractères ou contient uniquement des caractères spéciaux ET pas de tags
@@ -216,37 +210,37 @@ class App {
         this.stringToArray(searchString) == null) &&
       tagArray.length == 0
     ) {
-      console.log(
-        "CAS N°1 : la search bar est vide ou contient moins de 3 caractères ou contient uniquement des caractères spéciaux ET pas de tags"
-      );
+      // console.log(
+      //   "CAS N°1 : la search bar est vide ou contient moins de 3 caractères ou contient uniquement des caractères spéciaux ET pas de tags"
+      // );
       // utilisation de la method showRecipes pour afficher les recettes
       this.showRecipes(this.fetchedRecipesData);
       // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
       this.fillFiltersLists(this.fetchedRecipesData);
-      // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
-      this.optionSelection();
+      // utilisation de la method tagSelector pour rendre possible la séléction des tags précédements affichés
+      this.tagSelector();
     } else if (
       // CAS N°2 : la search bar contient plus de 2 caractères OU un/plusieurs tag(s)
       // => affichage des recettes triées
       (!(typeof searchString === "undefined") && searchString.length > 2) ||
       tagArray.length > 0
     ) {
-      console.log(
-        "CAS N°2 : la search bar contient plus de 2 caractères OU un/plusieurs tag(s)"
-      );
+      // console.log(
+      //   "CAS N°2 : la search bar contient plus de 2 caractères OU un/plusieurs tag(s)"
+      // );
 
       if (resultArray.length > 0) {
-        console.log("CAS N°2.1 : des résultats sont trouvés");
+        // console.log("CAS N°2.1 : des résultats sont trouvés");
         // cas où des résultats sont trouvés
         // => affichage des résultats
         // utilisation de la method showRecipes pour afficher les recettes
         this.showRecipes(resultArray);
         // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
         this.fillFiltersLists(resultArray);
-        // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
-        this.optionSelection();
+        // utilisation de la method tagSelector pour rendre possible la séléction des tags précédements affichés
+        this.tagSelector();
       } else {
-        console.log("CAS N°2.2 : pas de résultats");
+        // console.log("CAS N°2.2 : pas de résultats");
         // cas où aucun résultat ou moins de 3 caractères
         // => affichage du message d'erreur
         if (resultArray.length === 0) {
@@ -254,18 +248,6 @@ class App {
           this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchString}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
           // efface le compteur de recettes
           document.querySelector(".results-number").innerHTML = "";
-          // // masque les sélécteur de tags
-          // mainHeader.classList.add("hide");
-
-          // // ferme les listes de tags ouvertes
-          // const selectSearchContainers = document.querySelectorAll(
-          //   ".select-search-container"
-          // );
-
-          // selectSearchContainers.forEach((selectSearchContainer) => {
-          //   // suppression de la classe ".show" de l'élément ".select-search-container"
-          //   selectSearchContainer.classList.remove("show");
-          // });
 
           // ----------
           // ----------
@@ -357,10 +339,7 @@ class App {
       });
     });
 
-    console.log(
-      "🚀 \n file: App.js:270 \n trimRecipeList \n resultArray\n",
-      resultArray
-    );
+    // console.log("🚀 \n resultArray\n", resultArray);
 
     // retourne un tableau des résultats
     return resultArray;
@@ -451,11 +430,11 @@ class App {
       .replace(/>/g, "")
       .replace(/"/g, "")
       .replace(/'/g, "&#39;");
-    // remplace les "&", "<", ">", """, "'" par leur codes unicode
+    // remplace les `&`, `<`, `>`, `"`, `'` par leur codes unicode
   }
 
   // METHOD POUR LA GESTION DES INTERACTIONS SUR LES TAGS
-  optionSelection() {
+  tagSelector() {
     // ciblage du container des tags ingrédients
     const ingredientsOptionsContainer = document.querySelector(
       "#ingredientsOptions"
@@ -483,17 +462,11 @@ class App {
         // ajout d'un écouteur de click
         option.addEventListener("click", (e) => {
           // tag clické
-          const selectOptions = e.target;
+          const selectTag = e.target;
           // zone d'affichage des tags séléctionné
           const $wrapper = optionContainer.parentNode.querySelector(
             ".selected-container"
           );
-
-          // // ajout du string du tag séléctionné à la liste des tags séléctionnés
-          // this.selectedTags = this.selectedTags.concat(
-          //   " ",
-          //   selectOptions.innerText
-          // );
 
           // 1) afficher du tag en tête de liste
 
@@ -502,11 +475,11 @@ class App {
           selectedWrapper.classList.add("select-wrapper");
           // création de l'element p du tag
           const selectedOption = document.createElement("p");
-          selectedOption.innerText = selectOptions.innerText;
+          selectedOption.innerText = selectTag.innerText;
           selectedOption.classList.add("select-option", "selected-option");
           // création de l'element i du tag
           const close = document.createElement("i");
-          close.classList.add("fa-solid", "fa-x");
+          close.classList.add("fa-solid", "fa-x", "tagX");
           // ajout des elements à leur container
           selectedWrapper.appendChild(selectedOption);
           selectedWrapper.appendChild(close);
@@ -520,7 +493,7 @@ class App {
           tagWrapper.classList.add("tag-card");
           const tag = document.createElement("p");
           tag.classList.add("tag");
-          tag.innerText = selectOptions.innerText;
+          tag.innerText = selectTag.innerText;
           const closeTag = document.createElement("i");
           closeTag.classList.add("fa-solid", "fa-x");
           tagWrapper.appendChild(tag);
@@ -529,21 +502,7 @@ class App {
 
           // // 3) lancement d'une recherche
 
-          console.log("nouvelle recherche inité par ajout d'un tag");
           this.globalSearch();
-
-          // // utilisation de la method mainSearch sur la liste de recette en cours avec la liste de tags et actualisation de la liste de recette
-          // this.currentRecipesList = this.mainSearch(
-          //   this.currentRecipesList,
-          //   this.selectedTags
-          // );
-
-          // // utilisation de la method showRecipes pour afficher les recettes
-          // this.showRecipes(this.currentRecipesList);
-          // // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
-          // this.fillFiltersLists(this.currentRecipesList);
-          // // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
-          // this.optionSelection();
 
           // 4) suppression de la / des option(s) séléctionnées de la liste des tags
 
@@ -597,43 +556,12 @@ class App {
     });
   }
 
-  // METHOD POUR LA SUPPRESSION D'UN TAG SELECTIONNE [appliqué via la method optionSelection()]
+  // METHOD POUR LA SUPPRESSION D'UN TAG SELECTIONNE [appliqué via la method tagSelector()]
   deleteTag(e) {
     // container du tag clické
     const tagContainer = e.target.parentElement;
     // string du tag clické
     const tagName = tagContainer.querySelector("p").innerText;
-
-    // // supprime le tag de la liste de tags
-    // this.selectedTags = this.selectedTags.replace(tagName, "");
-
-    // // comportement suivant le nombre de tags
-
-    // if (
-    //   // CAS 1 : s'il reste des tags après suppression du tag à supprimer
-    //   this.selectedTags.replace(/\s/g, "").length > 1
-    // ) {
-    //   // utilisation de la method mainSearch sur la liste de recette en cours avec la liste de tags préalablement actualisée et actualisation de la liste de recette
-    //   this.currentRecipesList = this.mainSearch(
-    //     this.fetchedRecipesData,
-    //     this.selectedTags
-    //   );
-    //   // utilisation de la method showRecipes pour afficher les recettes
-    //   this.showRecipes(this.currentRecipesList);
-    //   // utilisation de la method fillFiltersLists pour afficher les tags correspondants aux recettes affichées
-    //   this.fillFiltersLists(this.currentRecipesList);
-    //   // utilisation de la method optionSelection pour rendre possible la séléction des tags précédements affichés
-    //   this.optionSelection();
-    // }
-    // // CAS 2 : absence de tags après suppression du tag à supprimer
-    // else {
-    //   // reset de la liste de recette en cours
-    //   this.currentRecipesList = this.fetchedRecipesData;
-    //   // utilisation de la method launchStringSearch pour lancer une recherche en fonction du contenu de la barre de recherche
-    //   this.launchStringSearch(this.searchString);
-    // }
-
-    // suppression visuelle du tag supprimé
 
     // selection des zone de tags haut
     const tagTopContainer = document.querySelectorAll(".selected-container");
@@ -667,33 +595,25 @@ class App {
     this.globalSearch();
   }
 
-  // METHOD POUR TRIER LES TAGS
-  optionTrimmer(option, value) {
-    console.log("🚀 \n file: App.js:687 \n optionTrimmer \n option\n", option);
-    console.log("🚀 \n file: App.js:687 \n optionTrimmer \n value\n", value);
-
-    const selectOptionsContainer = option.parentNode.parentNode.querySelector(
+  // METHOD POUR FILTRER LES TAGS
+  tagTrimmer(tag, value) {
+    const selectOptionsContainer = tag.parentNode.parentNode.querySelector(
       ".select-options-container"
     );
 
     const selectOptions =
       selectOptionsContainer.querySelectorAll(".select-option");
 
-    selectOptions.forEach((option) => {
-      option.style.display = "block";
-      if (!this.normalize(option.innerText).includes(value)) {
-        option.style.display = "none";
+    selectOptions.forEach((tag) => {
+      tag.style.display = "block";
+      if (!this.normalize(tag.innerText).includes(value)) {
+        tag.style.display = "none";
       }
     });
   }
 
   // METHOD POUR PERMETTRE D'EFFACER UNE BARRE DE RECHERCHE
-  deleteInput(buttonElement, tagSearchBar) {
-    console.log(
-      "🚀 \n file: App.js:707 \n deleteInput \n tagSearchBar\n",
-      tagSearchBar
-    );
-
+  deleteSearchBar(buttonElement, tagSearchBar) {
     // affiche le bouton d'action
     buttonElement.classList.remove("hide");
 
@@ -708,16 +628,11 @@ class App {
       buttonElement.classList.add("hide");
 
       if (tagSearchBar === undefined) {
-        console.log("EFFACEMENT MAIN SEARCH");
-        // lancement d'une recherche
+        // EFFACEMENT MAIN SEARCH : lancement d'une recherche
         this.globalSearch();
       } else {
-        console.log("EFFACEMENT TAG SEARCH");
-
-        // TODO ici les tags doivent tous réapparaître une fois la search bar vidée
-
-        // affiche l'ensemble des tags
-        this.optionTrimmer(tagSearchBar, "");
+        // EFFACEMENT TAG SEARCH : affiche l'ensemble des tags
+        this.tagTrimmer(tagSearchBar, "");
       }
     });
   }
