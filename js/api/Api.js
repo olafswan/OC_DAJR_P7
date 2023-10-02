@@ -10,7 +10,6 @@ class Api {
   async get() {
     return fetch(this._url)
       .then((res) => res.json())
-      .then((res) => res.data)
       .catch((err) => console.log("an error occurs", err));
   }
 }
@@ -25,6 +24,7 @@ class RecipesApi extends Api {
   }
 
   async getRecipes() {
-    return await this.get();
+    const data = await this.get();
+    return data.recipes;
   }
 }
