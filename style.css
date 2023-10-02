@@ -105,6 +105,8 @@ h1 {
 }
 
 .search-bar .delete-button i {
+  position: absolute;
+  right: 45px;
   font-size: 0.8rem;
   color: rgb(187, 187, 187);
   cursor: pointer;
@@ -161,6 +163,7 @@ main {
   background-color: #fff;
   padding: 8px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .close {
