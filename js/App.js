@@ -13,8 +13,7 @@ class App {
   }
 
   async main() {
-    // --- GESTION DES 3 MENUS DE SELECTION DE TAGS ---
-
+    // GESTION DES 3 MENUS DE SELECTION DE TAGS
     // Sélection de tous les éléments de classe ".select-header (titres des menus)"
     const selectHeaders = document.querySelectorAll(".select-header");
 
@@ -46,45 +45,19 @@ class App {
         down.classList.toggle("hide");
 
         // FERMETURE DES MENUS AU CLICK HORS DU MENU
-
         const body = document.querySelector("body");
 
-        function closeMenu(e) {
-          // element clické
-          const target = e.target;
-
-          console.log(
-            "🚀 \n file: App.js:56 \n App \n closeMenu \n e.target\n",
-            e.target
-          );
-
-          // click dans le container ou pas ?
-          const isInContainer =
-            selectContainer.contains(target) ||
-            target.classList.contains("select-option") ||
-            target.classList.contains("tagX");
-          // si clikk hors du container
-
-          if (!isInContainer) {
-            // suppression de  la classe ".show" de l'élément ".select-search-container" le corps du menu
-            selectSearchContainer.classList.remove("show");
-            // ajout la classe ".close" de l'élément ".select-container" l'entête du menu
-            selectContainer.classList.add("close");
-            // up affiché menu ouvert ˄
-            up.classList.add("hide");
-            // down affiché menu fermé ˅
-            down.classList.remove("hide");
-          }
-        }
-
-        // verifie si le menu est ouvert :
+        // si le menu est ouvert :
         if (!selectContainer.classList.contains("close")) {
-          body.addEventListener("click", (e) => closeMenu(e));
+          // ajoute un ecouteur de click
+          body.addEventListener("click", (e) =>
+            // au click appel la method closeMenu
+            this.closeMenu(e, selectSearchContainer, selectContainer)
+          );
         }
         if (selectContainer.classList.contains("close")) {
           removeEventListener("click", body);
         }
-        // -------------------
       });
     });
 
@@ -149,15 +122,6 @@ class App {
         }
         // filtre la liste de tag en fonction de l'input
         this.tagTrimmer(tagSearchBar, this.normalize(tagSearchBar.value));
-      });
-      // à la perte de focus vider le champ et masquer le bouton d'effacement
-      tagSearchBar.addEventListener("blur", () => {
-        // vide le champs
-        tagSearchBar.value = "";
-        // masque le bouton d'effacement
-        deleteButton.classList.add("hide");
-        // reninitialise la liste de tags
-        this.tagTrimmer(tagSearchBar, "");
       });
     });
   }
@@ -248,34 +212,6 @@ class App {
           this.$recipesWrapper.innerHTML = `<p class="search-error">« Aucune recette ne contient ‘${searchString}’ vous pouvez chercher ‘tarte aux pommes’, ‘poisson’ etc...</p>`;
           // efface le compteur de recettes
           document.querySelector(".results-number").innerHTML = "";
-
-          // ----------
-          // ----------
-          // ----------
-
-          // // TODO chercher dans les 3 menu si l'un n'est pas close auquel cas faire le toggle sur les 4 elements en modifiant le code suivant
-
-          // // Récupérer l'élément parent ".select-container" de l'élément ".select-header" cliqué
-          // const selectContainer = header.parentElement;
-
-          // // Récupérer l'élément ".select-search-container" enfant de l'élément parent
-          // const selectSearchContainer = selectContainer.querySelector(
-          //   ".select-search-container"
-          // );
-          // // icone ˄
-          // const up = selectContainer.querySelector(".fa-angle-up");
-          // // icone ˅
-          // const down = selectContainer.querySelector(".fa-angle-down");
-
-          // // toggle la classe ".show" de l'élément ".select-search-container" le corps du menu
-          // selectSearchContainer.classList.toggle("show");
-          // // toggle la classe ".close" de l'élément ".select-container" l'entête du menu
-          // selectContainer.classList.toggle("close");
-
-          // // up affiché menu ouvert ˄
-          // up.classList.toggle("hide");
-          // // down affiché menu fermé ˅
-          // down.classList.toggle("hide");
         }
       }
     }
@@ -321,11 +257,37 @@ class App {
       // concaténation des mots de la barre de recherche et des tags
       const searchTerms = searchArray.concat(tagArray);
 
-      // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette
+      // // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette V1
+      // searchTerms.forEach((term) => {
+      //   if (
+      //     // si l'un des mots est absent, la recette doit être supprimée du tableau des résultats
+      //     !recipeArray.includes(term)
+      //   ) {
+      //     // recherche de l'index de la recette à supprimer
+      //     const index = resultArray.indexOf(recipe);
+
+      //     // supression de la recette via son index
+      //     if (index != -1) {
+      //       resultArray.splice(index, 1);
+      //     }
+      //   }
+      //   // si le mot est présent la recette doit être conservée dans le tabelau des résultats
+      // });
+
+      // vérification que CHAQUE mot de la recherche est inclus dans la liste de mot de la recette V2
       searchTerms.forEach((term) => {
+        let termIsPresent = false;
+
+        // ppour chaque mot de la recette verifier si une concordance existe avec le terme de recherche
+        recipeArray.forEach((recipeTerm) => {
+          if (recipeTerm.startsWith(term)) {
+            termIsPresent = true;
+          }
+        });
+
         if (
           // si l'un des mots est absent, la recette doit être supprimée du tableau des résultats
-          !recipeArray.includes(term)
+          !termIsPresent
         ) {
           // recherche de l'index de la recette à supprimer
           const index = resultArray.indexOf(recipe);
@@ -391,6 +353,16 @@ class App {
 
     // Création des des tags grace à la method fillFiltersLists
     ListBuilder.fillFiltersLists();
+
+    // FACULTATIF
+    // filtre les tags si menu ouvert et input présent dans la barre de recherche de tags
+    const menus = document.querySelectorAll(".select-container");
+    menus.forEach((selectContainer) => {
+      if (!selectContainer.classList.contains("close")) {
+        const tagSearchBar = selectContainer.querySelector("textarea");
+        this.tagTrimmer(tagSearchBar, this.normalize(tagSearchBar.value));
+      }
+    });
   }
 
   // METHOD POUR LA SUPPRESSION DES MAJUSCULES ET DES CARACTERES ACCENTUES
@@ -635,6 +607,46 @@ class App {
         this.tagTrimmer(tagSearchBar, "");
       }
     });
+  }
+
+  // METHOD POUR FERMER UN MENU
+  closeMenu(e, selectSearchContainer, selectContainer) {
+    // element clické
+    const target = e.target;
+    // icone ˄
+    const up = selectContainer.querySelector(".fa-angle-up");
+    // icone ˅
+    const down = selectContainer.querySelector(".fa-angle-down");
+
+    // click dans le container ou pas ?
+    const isInContainer =
+      selectContainer.contains(target) ||
+      target.classList.contains("select-option") ||
+      target.classList.contains("tagX");
+
+    // si click hors du container : fermeture du menu
+    if (!isInContainer) {
+      // suppression de  la classe ".show" de l'élément ".select-search-container" le corps du menu
+      selectSearchContainer.classList.remove("show");
+      // ajout la classe ".close" de l'élément ".select-container" l'entête du menu
+      selectContainer.classList.add("close");
+      // up affiché menu ouvert ˄
+      up.classList.add("hide");
+      // down affiché menu fermé ˅
+      down.classList.remove("hide");
+
+      // effacement du champ de recherche de tags si besoin
+      const tagSearchBar = selectContainer.querySelector("textarea");
+      const deleteButton = selectContainer.querySelector(".delete-button");
+      if (tagSearchBar.value != "") {
+        // vide le champs
+        tagSearchBar.value = "";
+        // masque le bouton d'effacement
+        deleteButton.classList.add("hide");
+        // reninitialise la liste de tags
+        this.tagTrimmer(tagSearchBar, "");
+      }
+    }
   }
 }
 
