@@ -80,13 +80,26 @@ class App {
       const deleteButton = document.querySelector(
         "div.search-bar .delete-button"
       );
+      // cible la loupe de la barre de recherche
+      const searchButton = document.querySelector(
+        "div.search-bar .search-button"
+      );
+      const magnifyingGlass = document.querySelector(
+        "div.search-bar .fa-magnifying-glass"
+      );
       // ajout du bouton d'effacement si le champ n'est pas vide
       if (searchBar.value != "") {
         // appelle la method pour permettre l'effacement
         this.deleteSearchBar(deleteButton);
+        // colore en jaune la loupe
+        searchButton.classList.add("CTA");
+        magnifyingGlass.classList.add("CTA2");
       } else {
         // masque le bouton d'effacement si le champ est vide
         deleteButton.classList.add("hide");
+        // enleve la loupe en couleur jaune
+        searchButton.classList.remove("CTA");
+        magnifyingGlass.classList.remove("CTA2");
       }
       // lancement d'une recherche
       this.globalSearch();
