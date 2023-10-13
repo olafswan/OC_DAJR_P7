@@ -15,16 +15,10 @@
 header {
   position: relative;
   width: 100vw;
-  /* height: 50vh; */
   height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-image: url("./assets/images/headerBackground.jpeg");
-  background-position: center right;
-  background-size: cover;
-  background-repeat: no-repeat;
-  backdrop-filter: contrast(90%); */
 }
 
 header::before {
@@ -67,6 +61,7 @@ i {
   width: 65vw;
   z-index: 1;
   padding-top: 4rem;
+  max-width: 700px;
 }
 
 h1 {
@@ -128,11 +123,17 @@ h1 {
   color: #d3d3d3;
 }
 
+.CTA {
+  background-color: #ffd15b;
+}
+.CTA2 {
+  color: black !important;
+}
+
 main {
   position: relative;
   padding: 1rem 3rem;
   background-color: #ededed;
-  /* height: 50vh; */
 }
 
 .main-header,
@@ -154,11 +155,9 @@ main {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  /* border: 2px double red; */
 }
 
 .select-container {
-  /* border: 1px solid green; */
   width: 150px;
   background-color: #fff;
   padding: 8px;
@@ -178,25 +177,15 @@ main {
   background-color: #fff;
   border-radius: 5px;
   height: 2rem;
-  /* padding: 5px; */
   cursor: pointer;
 }
 
 .select-title {
+  font-size: 0.9rem;
 }
 
 .select-icon {
   color: #000;
-}
-
-/* up affiché menu ouvert */
-.up {
-  /* display: none; */
-}
-
-/* down affiché menu fermé */
-.down {
-  /* display: block; */
 }
 
 .hide {
@@ -204,8 +193,6 @@ main {
 }
 
 .select-search-container {
-  /* border: 1px solid blueviolet; */
-  /* TODO class to toggle to show search */
   display: none;
 }
 
@@ -225,7 +212,6 @@ main {
 }
 
 .select-search-bar textarea {
-  /* border: 1px solid blue; */
   width: 100%;
   color: rgb(187, 187, 187);
   resize: none;
@@ -240,7 +226,6 @@ main {
   justify-content: center;
   height: 1.2rem;
   width: 1.2rem;
-  /* border: 1px solid red; */
 }
 .select-search-button i {
   font-size: 0.7rem;
@@ -253,27 +238,18 @@ main {
   cursor: pointer;
 }
 
-.select-options-container {
-  /* border: 1px solid salmon; */
-}
-
 .select-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  /* border: 1px solid salmon; */
-
   background-color: #ffd15b;
-
   margin: 2px -8px;
-  /* padding: 8px; */
 }
 
 .select-option {
   margin: 4px 8px;
-  /* border: 1px solid lavender; */
 }
 .select-option:hover {
   cursor: pointer;
@@ -283,8 +259,6 @@ main {
   margin-right: 8px;
   font-size: 0.4rem;
   color: #ffd15b;
-  /* line-height: 0.3rem; */
-
   background-color: #000;
   border: 1px solid #000;
   padding: 1px;
@@ -307,15 +281,9 @@ main {
 
 .selected-option {
   padding-left: 8px;
-  /* background-color: #ffd15b; */
-  /* margin-left: -8px; */
-  /* margin-right: -8px; */
-  /* margin: 2px -8px;
-  padding: 8px; */
 }
 
 .results-number {
-  /* border: 1px solid slateblue; */
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
@@ -353,9 +321,7 @@ main {
 /* RESULTS */
 
 .result-container {
-  /* border: 1px dotted gray; */
   display: grid;
-  /* width: 100%; */
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
@@ -366,7 +332,6 @@ main {
   left: 0;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   padding-top: 2rem;
   padding-left: 10vw;
   padding-right: 10vw;
@@ -392,6 +357,7 @@ main {
 .recipe-information {
   padding: 1rem;
   font-weight: 100;
+  font-size: 0.8rem;
 }
 
 h2 {
@@ -402,32 +368,26 @@ h2 {
 h3 {
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.65rem;
   color: rgb(187, 187, 187);
   margin-bottom: 0.7rem;
 }
 
 .recipe-description {
   margin-bottom: 1.5rem;
-  /* font-weight: 100; */
-}
-
-.recipe-ingredient-container {
 }
 
 .ingredients-wrapper {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-  /* font-weight: 100; */
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .recipe-quantity {
   color: rgb(187, 187, 187);
   margin-bottom: 0.5rem;
-  /* font-weight: 100; */
 }
 
 .recipe-time-container {
@@ -437,7 +397,7 @@ h3 {
   background-color: #ffd15b;
   border-radius: 1rem;
   font-size: 0.6rem;
-  padding: 0.1rem 0.3rem;
+  padding: 0.15rem 0.35rem;
 }
 
 .recipe-time {
