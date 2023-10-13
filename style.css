@@ -179,6 +179,7 @@ main {
   border-radius: 5px;
   height: 2rem;
   /* padding: 5px; */
+  cursor: pointer;
 }
 
 .select-title {
@@ -282,7 +283,7 @@ main {
   margin-right: 8px;
   font-size: 0.4rem;
   color: #ffd15b;
-  line-height: 0.3rem;
+  /* line-height: 0.3rem; */
 
   background-color: #000;
   border: 1px solid #000;
