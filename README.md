@@ -100,8 +100,10 @@ Git afin qu’on conserve bien le code séparé pour chacun. Pour ton implément
  sont sur le document du cas d’utilisation que t’a envoyé Sandra. Pour les recherches par tag, tu pourras
 utiliser une seule et même version de la recherche pour les 2 branches.
 Quand tu implémenteras ton code :  
-respecte les bonnes pratiques de Green Code : découpe ton code au maximum en fonctions réutilisables, par exemple pour les cartes des recettes ou encore la génération des listes de tags ; 
-fais attention au risque d’injection de balises html ou toute autre faille de sécurité  dans le site via les formulaires.
+respecte les bonnes pratiques de Green Code : découpe ton code au maximum en fonctions réutilisables, par
+exemple pour les cartes des recettes ou encore la génération des listes de tags ; 
+fais attention au risque d’injection de balises html ou toute autre faille de sécurité  dans le site via les
+formulaires.
 
 Vous:
 Et comment je choisis la meilleure version du code du coup ?
