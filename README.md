@@ -129,4 +129,4 @@ Parfait, merci pour tes conseils JB. Je me lance !
 [Appliquez les principes du Green IT dans votre entreprise](https://openclassrooms.com/fr/courses/6227476-appliquez-les-principes-du-green-it-dans-votre-entreprise)
 
 ### Résultat final lors du passage de la soutenance :
-[Page d'acceuil Les petits plats](https://olafswan.github.io/OC_DAJR_P7/index.html)
+[Page d'acceuil Les petits plats](https://olafswan.github.io/OC_DAJR_P7-Les-petits-plats/index.html)
